@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">MyVegetableGarden</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="communicate">Communicate</string>
+    <string name="message">Message</string>
+    <string name="profile">Profile</string>
+    <string name="share">Share</string>
+</resources>
