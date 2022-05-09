@@ -6,4 +6,9 @@
     <string name="message">Message</string>
     <string name="profile">Profile</string>
     <string name="share">Share</string>
+    <string name="search">search</string>
+    <string name="image_of_the_product">image_of_the_product</string>
+    <string name="product_name">product_name</string>
+    <string name="product_price">product_price</string>
+    <string name="product_description">product_description</string>
 </resources>

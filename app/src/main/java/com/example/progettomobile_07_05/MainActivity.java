@@ -6,15 +6,24 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.progettomobile_07_05.RecyclerView.CardAdapter;
 import com.google.android.material.navigation.NavigationView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
+    private CardAdapter adapter;
+    private RecyclerView recyclerView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +36,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+
+
+
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open,
                 R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -38,6 +50,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
         Utilities.insertFragment(this, new HomeFragment(), HomeFragment.class.getSimpleName());
+        //setRecyclerView(this);
+
 
     }
 
@@ -66,4 +80,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    private void setRecyclerView(final Activity activity){
+        recyclerView = activity.findViewById(R.id.recycler_view);
+        recyclerView.setHasFixedSize(true);
+        List<CardItem> list = new ArrayList<>();
+        list.add(new CardItem("ic_baseline_android_24", "Name", "Price","description"));
+        adapter = new CardAdapter(list, activity);
+        recyclerView.setAdapter(adapter);
+    }
+
 }
