@@ -19,4 +19,5 @@
     <string name="take_a_picture">take_a_picture</string>
     <string name="image_captured">image_captured</string>
     <string name="product_position">product_position</string>
+    <string name="home">home</string>
 </resources>

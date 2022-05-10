@@ -12,17 +12,19 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.progettomobile_07_05.RecyclerView.CardAdapter;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class HomeFragment extends Fragment {
     private RecyclerView recyclerView;
-    //private CardAdapter adapter;
     private CardAdapter adapter;
 
     @Nullable
@@ -35,13 +37,17 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
         super.onViewCreated(view, savedInstanceState);
-        final Activity activity = getActivity();
+        FragmentActivity activity = getActivity();
         if(activity != null){
             setRecyclerView(activity);
+
+
+
+
         }else{
             Log.e(String.valueOf(LOG), "Activity is null");
         }
-        setRecyclerView(getActivity());
+
     }
 
     private void setRecyclerView(final Activity activity){
@@ -51,6 +57,7 @@ public class HomeFragment extends Fragment {
         list.add(new CardItem("ic_baseline_android_24", "Name", "Price","description"));
         adapter = new CardAdapter(list, activity);
         recyclerView.setAdapter(adapter);
+
 
     }
 }

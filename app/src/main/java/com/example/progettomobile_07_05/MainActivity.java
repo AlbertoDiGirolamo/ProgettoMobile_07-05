@@ -6,15 +6,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.progettomobile_07_05.RecyclerView.CardAdapter;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
@@ -36,9 +40,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-
-
-
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open,
                 R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -51,6 +52,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         Utilities.insertFragment(this, new HomeFragment(), HomeFragment.class.getSimpleName());
         //setRecyclerView(this);
+
+
+        FragmentActivity activity = this;
+        View view = findViewById(R.id.fab_add).getRootView();
+        FloatingActionButton floatingActionButton = view.findViewById(R.id.fab_add);
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Utilities.insertFragment((AppCompatActivity) activity, new AddFragment(),
+                        AddFragment.class.getSimpleName());
+            }
+
+        });
 
 
     }
@@ -77,17 +91,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_share:
                 Toast.makeText(this, "Share", Toast.LENGTH_SHORT).show();
                 break;
+            case R.id.nav_home:
+                Intent i=new Intent(this, MainActivity.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
+                break;
         }drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    private void setRecyclerView(final Activity activity){
-        recyclerView = activity.findViewById(R.id.recycler_view);
-        recyclerView.setHasFixedSize(true);
-        List<CardItem> list = new ArrayList<>();
-        list.add(new CardItem("ic_baseline_android_24", "Name", "Price","description"));
-        adapter = new CardAdapter(list, activity);
-        recyclerView.setAdapter(adapter);
     }
 
 }

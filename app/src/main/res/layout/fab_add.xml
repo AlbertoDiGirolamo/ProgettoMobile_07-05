@@ -6,6 +6,7 @@
     android:contentDescription="@string/add_new_product"
     android:src="@drawable/ic_baseline_add_24"
     android:layout_gravity="bottom|end"
-    android:layout_margin="16dp">
+    android:layout_margin="16dp"
+    android:id="@+id/fab_add">
 
 </com.google.android.material.floatingactionbutton.FloatingActionButton>
