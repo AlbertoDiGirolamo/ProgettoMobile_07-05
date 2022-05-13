@@ -21,8 +21,10 @@ import java.util.List;
 public class CardAdapter extends RecyclerView.Adapter<CardViewHolder> {
     List<CardItem> cardItemList;
     private Activity activity;
+    private OnItemListener listener;
 
-    public CardAdapter(List<CardItem> cardItemList, Activity activity){
+    public CardAdapter(OnItemListener listener, List<CardItem> cardItemList, Activity activity){
+        this.listener = listener;
         this.cardItemList = cardItemList;
         this.activity = activity;
 
@@ -32,7 +34,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardViewHolder> {
     @Override
     public CardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_layout, parent, false);
-        return  new CardViewHolder(layoutView);
+        return  new CardViewHolder(layoutView, listener);
     }
 
     @Override
@@ -53,6 +55,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardViewHolder> {
         holder.productNameTextView.setText(currentCardItem.getProductName());
         holder.productPriceTextView.setText(currentCardItem.getProductPrice());
         holder.productDescriptionTextView.setText(currentCardItem.getProductDescription());
+        holder.productPositionTextView.setText(currentCardItem.getProductPosition());
     }
 
     @Override

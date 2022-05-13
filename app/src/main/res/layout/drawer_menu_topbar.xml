@@ -21,26 +21,13 @@
             android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar"
             app:popupTheme="@style/Theme.AppCompat.Light"
             android:elevation="4dp">
-            <!--<ImageButton
-                android:id="@+id/imageButtonMenu"
-                android:layout_width="28dp"
-                android:layout_height="29dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:background="@android:color/transparent"
-                android:scaleType="fitCenter"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_baseline_menu_24" />-->
 
-
-
-            <SearchView
+            <androidx.appcompat.widget.SearchView
                 android:layout_width="104dp"
                 android:layout_height="66dp"
                 android:searchIcon="@drawable/ic_baseline_search_24"
                 android:layout_gravity="top|end"
+                android:id="@+id/search_icon"
                 />
         </androidx.appcompat.widget.Toolbar>
 

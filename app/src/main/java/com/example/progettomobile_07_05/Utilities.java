@@ -16,7 +16,10 @@ public class Utilities {
     static void insertFragment(AppCompatActivity activity, Fragment fragment, String tag) {
         FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, fragment, tag);
-        transaction.addToBackStack(tag);
+        if(!(fragment instanceof  HomeFragment)){
+            transaction.addToBackStack(tag);
+        }
+
         transaction.commit();
     }
 

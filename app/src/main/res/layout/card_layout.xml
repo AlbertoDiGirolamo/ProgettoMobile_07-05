@@ -15,7 +15,10 @@
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_margin="10dp">
+
+
 
         <ImageView
             android:id="@+id/product_imageview"
@@ -24,6 +27,7 @@
             android:background="@color/purple_500"
             android:scaleType="centerCrop"
             tools:srcCompat="@tools:sample/backgrounds/scenic"
+
             android:contentDescription="@string/image_of_the_product"/>
 
         <TextView
@@ -50,6 +54,12 @@
             android:text="@string/product_description"
             android:layout_margin="3dp"
             android:textAppearance="@style/TextAppearance.Material3.TitleMedium"/>
-
+        <TextView
+            android:id="@+id/product_position_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/product_position"
+            android:layout_margin="3dp"
+            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"/>
     </androidx.appcompat.widget.LinearLayoutCompat>
 </com.google.android.material.card.MaterialCardView>

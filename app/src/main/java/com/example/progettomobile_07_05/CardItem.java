@@ -5,12 +5,14 @@ public class CardItem {
     private String productName;
     private String productPrice;
     private String productDescription;
+    private String productPosition;
 
-    public CardItem(String imageResource, String productName, String productPrice, String productDescription){
+    public CardItem(String imageResource, String productName, String productPrice, String productDescription, String productPosition){
         this.imageResource = imageResource;
         this.productName = productName;
         this.productPrice = productPrice;
         this.productDescription = productDescription;
+        this.productPosition = productPosition;
     }
 
     public String getProductName() {
@@ -27,5 +29,9 @@ public class CardItem {
 
     public String getImageResource() {
         return imageResource;
+    }
+
+    public String getProductPosition() {
+        return productPosition;
     }
 }
