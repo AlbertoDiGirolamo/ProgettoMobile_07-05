@@ -10,12 +10,15 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.progettomobile_07_05.CardItem;
 import com.example.progettomobile_07_05.R;
 import com.example.progettomobile_07_05.Utilities;
 
+import java.sql.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CardAdapter extends RecyclerView.Adapter<CardViewHolder> {
@@ -23,9 +26,10 @@ public class CardAdapter extends RecyclerView.Adapter<CardViewHolder> {
     private Activity activity;
     private OnItemListener listener;
 
-    public CardAdapter(OnItemListener listener, List<CardItem> cardItemList, Activity activity){
+    private List<CardItem> cardItemListNotFiltered = new ArrayList<>();
+
+    public CardAdapter(OnItemListener listener, Activity activity){
         this.listener = listener;
-        this.cardItemList = cardItemList;
         this.activity = activity;
 
     }
@@ -61,5 +65,18 @@ public class CardAdapter extends RecyclerView.Adapter<CardViewHolder> {
     @Override
     public int getItemCount() {
         return cardItemList.size();
+    }
+
+    public  void setData(List<CardItem> list){
+        this.cardItemList = new ArrayList<>(list);
+        this.cardItemListNotFiltered = new ArrayList<>(list);
+
+        final CardItemDiffCallBack diffCallBack = new CardItemDiffCallBack(this.cardItemList, list);
+        final DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffCallBack);
+        diffResult.dispatchUpdatesTo(this);
+    }
+
+    public CardItem getItemSelected(int position) {
+        return  cardItemList.get(position);
     }
 }

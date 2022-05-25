@@ -21,10 +21,13 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.progettomobile_07_05.RecyclerView.CardAdapter;
 import com.example.progettomobile_07_05.RecyclerView.OnItemListener;
+import com.example.progettomobile_07_05.ViewModel.ListViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
@@ -34,6 +37,7 @@ import java.util.List;
 public class HomeFragment extends Fragment  implements OnItemListener {
     private RecyclerView recyclerView;
     private CardAdapter adapter;
+    private ListViewModel listViewModel;
 
     @Nullable
     @Override
@@ -51,6 +55,15 @@ public class HomeFragment extends Fragment  implements OnItemListener {
         if(activity != null){
             setRecyclerView(activity);
 
+            listViewModel = new ViewModelProvider(activity).get(ListViewModel.class);
+            listViewModel.getCardItems().observe(activity, new Observer<List<CardItem>>() {
+                @Override
+                public void onChanged(List<CardItem> cardItem) {
+
+                    adapter.setData(cardItem);
+                }
+            });
+
 
 
         }else{
@@ -64,10 +77,10 @@ public class HomeFragment extends Fragment  implements OnItemListener {
     private void setRecyclerView(final Activity activity){
         recyclerView = activity.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
-        List<CardItem> list = new ArrayList<>();
-        list.add(new CardItem("ic_baseline_android_24", "Name", "Price","Description", "Position"));
+
+
         final OnItemListener listener = this;
-        adapter = new CardAdapter(listener, list, activity);
+        adapter = new CardAdapter(listener, activity);
         recyclerView.setAdapter(adapter);
 
 
@@ -78,6 +91,9 @@ public class HomeFragment extends Fragment  implements OnItemListener {
         Activity activity = getActivity();
         if (activity != null){
             Utilities.insertFragment((AppCompatActivity) activity, new DetailsFragment(), DetailsFragment.class.getSimpleName());
+            listViewModel.setItemSelected(adapter.getItemSelected(position));
         }
     }
+
+
 }

@@ -1,37 +1,35 @@
 package com.example.progettomobile_07_05;
 
+import static com.example.progettomobile_07_05.Utilities.REQUEST_IMAGE_CAPTURE;
+
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.progettomobile_07_05.ViewModel.AddViewModel;
 import com.example.progettomobile_07_05.RecyclerView.CardAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
     private CardAdapter adapter;
     private RecyclerView recyclerView;
+    private AddViewModel addViewModel;
 
 
     @Override
@@ -42,10 +40,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         HomeFragment homeFragment = new HomeFragment();
         Utilities.insertFragment(this, homeFragment, HomeFragment.class.getSimpleName());
-
-
-
-
 
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -83,6 +77,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
 
         });
+
+        addViewModel = new ViewModelProvider(this).get(AddViewModel.class);
 
 
     }
@@ -124,5 +120,33 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+
+            Bundle extras = data.getExtras();
+            if(extras != null){
+                Bitmap imageBitmap = (Bitmap) extras.get("data");
+
+                addViewModel.setImageBitmap(imageBitmap);
+            }
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

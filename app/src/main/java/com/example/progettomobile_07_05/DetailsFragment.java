@@ -26,13 +26,17 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
 
+import com.example.progettomobile_07_05.ViewModel.ListViewModel;
+
 public class DetailsFragment extends Fragment {
 
-    private TextView placeTextView;
+    private TextView nameTextView;
     private TextView descriptionTextView;
-    private TextView dateTextView;
+    private TextView priceTextView;
+    private TextView positionTextView;
 
-    private ImageView placeImageView;
+    private ImageView productImageView;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -56,29 +60,31 @@ public class DetailsFragment extends Fragment {
             sv.setVisibility(View.INVISIBLE);
             //Utilities.setUpToolbar((AppCompatActivity) activity, "Details");
 
-            /*placeTextView = view.findViewById(R.id.place_name);
-            descriptionTextView = view.findViewById(R.id.place_description);
-            dateTextView = view.findViewById(R.id.travel_date);
-            placeImageView = view.findViewById(R.id.place_image);
+            nameTextView = view.findViewById(R.id.product_name);
+            descriptionTextView = view.findViewById(R.id.product_description);
+            priceTextView = view.findViewById(R.id.product_price);
+            positionTextView = view.findViewById(R.id.product_position);
+            productImageView = view.findViewById(R.id.product_image);
 
             ListViewModel listViewModel =
                     new ViewModelProvider((ViewModelStoreOwner) activity).get(ListViewModel.class);
             listViewModel.getItemSelected().observe(getViewLifecycleOwner(), new Observer<CardItem>() {
                 @Override
                 public void onChanged(CardItem cardItem) {
-                    placeTextView.setText(cardItem.getPlaceName());
-                    descriptionTextView.setText(cardItem.getPlaceDescription());
-                    dateTextView.setText(cardItem.getDate());
+                    nameTextView.setText(cardItem.getProductName());
+                    descriptionTextView.setText(cardItem.getProductDescription());
+                    priceTextView.setText(cardItem.getProductPrice());
+                    positionTextView.setText(cardItem.getProductPosition());
                     String image_path = cardItem.getImageResource();
                     if (image_path.contains("ic_")){
                         Drawable drawable = ResourcesCompat.getDrawable(activity.getResources(),
                                 R.drawable.ic_baseline_android_24, activity.getTheme());
-                        placeImageView.setImageDrawable(drawable);
+                        productImageView.setImageDrawable(drawable);
                     } else {
                         Bitmap bitmap = Utilities.getImageBitmap(activity, Uri.parse(image_path));
                         if (bitmap != null){
-                            placeImageView.setImageBitmap(bitmap);
-                            placeImageView.setBackgroundColor(Color.WHITE);
+                            productImageView.setImageBitmap(bitmap);
+                            productImageView.setBackgroundColor(Color.WHITE);
                         }
                     }
                 }
@@ -88,17 +94,18 @@ public class DetailsFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     Intent shareIntent = new Intent(Intent.ACTION_SEND);
-                    shareIntent.putExtra(Intent.EXTRA_TEXT, getText(R.string.place_title) + ": " +
-                            placeTextView.getText().toString() +"\n" + getText(R.string.date) + ": " +
-                            dateTextView.getText().toString() +"\n" + getText(R.string.description) + ": " +
-                            descriptionTextView.getText().toString());
+                    shareIntent.putExtra(Intent.EXTRA_TEXT, getText(R.string.product_name) + ": " +
+                          "\n" + getText(R.string.price) + ": " +
+                            priceTextView.getText().toString() +"\n" + getText(R.string.description) + ": " +
+                            descriptionTextView.getText().toString() + getText(R.string.position) + ": " +
+                            positionTextView.getText().toString());
                     shareIntent.setType("text/plain");
                     Context context = view.getContext();
                     if (context != null && shareIntent.resolveActivity(context.getPackageManager()) != null) {
                         context.startActivity(Intent.createChooser(shareIntent, null));
                     }
                 }
-            });*/
+            });
 
         }
     }
