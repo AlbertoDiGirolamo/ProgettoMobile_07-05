@@ -58,4 +58,12 @@ public class CardItem {
     public String getProductPosition() {
         return productPosition;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }

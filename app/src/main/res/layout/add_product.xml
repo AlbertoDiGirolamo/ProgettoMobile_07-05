@@ -37,7 +37,7 @@
                 android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/product_edittext"
+                    android:id="@+id/product_position_edittext"
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
                     android:hint="@string/product_position"

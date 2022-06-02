@@ -27,6 +27,7 @@ import androidx.lifecycle.ViewModelStoreOwner;
 
 import com.example.progettomobile_07_05.ViewModel.AddViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -36,6 +37,12 @@ import java.util.Date;
 import java.util.Locale;
 
 public class AddFragment extends Fragment {
+    TextInputEditText productTIET;
+    TextInputEditText descriptionTIET;
+    TextInputEditText priceTIET;
+    TextInputEditText positionTIET;
+
+
 
     @Nullable
     @Override
@@ -51,8 +58,8 @@ public class AddFragment extends Fragment {
         sv.setVisibility(View.INVISIBLE);
 
         AddFragment addFragment = this;
-        View viewAdd = activity.findViewById(R.id.fab_add).getRootView();
-        FloatingActionButton floatingActionButton = view.findViewById(R.id.fab_add);
+        View viewAdd = getActivity().findViewById(R.id.fab_add);
+        /*FloatingActionButton floatingActionButton = view.findViewById(R.id.fab_add);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -60,7 +67,7 @@ public class AddFragment extends Fragment {
                         AddFragment.class.getSimpleName());
             }
 
-        });
+        });*/
 
         view.findViewById(R.id.capture_button).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,15 +90,35 @@ public class AddFragment extends Fragment {
             }
         });
 
-        view.findViewById(R.id.fab_add).setOnClickListener(new View.OnClickListener(){
+        productTIET = this.getView().findViewById(R.id.product_name_edittext);
+        descriptionTIET = this.getView().findViewById(R.id.description_edittext);
+        priceTIET = this.getView().findViewById(R.id.price_edittext);
+        positionTIET = this.getView().findViewById(R.id.product_position_edittext);
+
+        FloatingActionButton floatingActionButton = getActivity().findViewById(R.id.fab_add);
+        floatingActionButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
                 Bitmap bitmap = addViewModel.getImageBitmap().getValue();
+                String imageUriString;
                 try{
                     if(bitmap != null){
-                        saveImage(bitmap,activity);
+                        imageUriString = String.valueOf(saveImage(bitmap, activity));
 
                     }
+                    else{
+                        imageUriString = "ic_baseline_android_24";
+                    }
+                    if (productTIET.getText() != null && descriptionTIET.getText() != null
+                            && priceTIET.getText() != null && positionTIET.getText() != null){
+                        addViewModel.addCardItem(new CardItem(imageUriString, productTIET.getText().toString(),
+                                priceTIET.getText().toString(), descriptionTIET.getText().toString(),
+                                positionTIET.getText().toString()));
+                        addViewModel.setImageBitmap(null);
+
+                        ((AppCompatActivity) activity).getSupportFragmentManager().popBackStack();
+                    }
+
                 }catch (FileNotFoundException e){
                     e.printStackTrace();
                 }
@@ -101,7 +128,7 @@ public class AddFragment extends Fragment {
 
     }
 
-    private void saveImage(Bitmap bitmap, Activity activity) throws FileNotFoundException {
+    private Uri saveImage(Bitmap bitmap, Activity activity) throws FileNotFoundException {
         String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.ITALY)
                 .format(new Date());
         String name = "JPEG_" + timestamp + ".jpg";
@@ -124,6 +151,7 @@ public class AddFragment extends Fragment {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return imageUri;
 
 
     }

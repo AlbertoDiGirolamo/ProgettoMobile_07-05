@@ -37,9 +37,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-        HomeFragment homeFragment = new HomeFragment();
-        Utilities.insertFragment(this, homeFragment, HomeFragment.class.getSimpleName());
+        if (savedInstanceState == null)
+            Utilities.insertFragment(this, new HomeFragment(), HomeFragment.class.getSimpleName());
 
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -67,16 +66,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
         FragmentActivity activity = this;
-        View view = findViewById(R.id.fab_add).getRootView();
-        FloatingActionButton floatingActionButton = view.findViewById(R.id.fab_add);
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Utilities.insertFragment((AppCompatActivity) activity, new AddFragment(),
-                        AddFragment.class.getSimpleName());
-            }
+        //View view = findViewById(R.id.fab_add).getRootView();
 
-        });
 
         addViewModel = new ViewModelProvider(this).get(AddViewModel.class);
 

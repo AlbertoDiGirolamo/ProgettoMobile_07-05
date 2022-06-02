@@ -9,35 +9,39 @@ import android.graphics.drawable.Drawable;
 import androidx.annotation.NonNull;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.progettomobile_07_05.CardItem;
+import com.example.progettomobile_07_05.Database.CardItemRepository;
 import com.example.progettomobile_07_05.R;
 
 public class AddViewModel extends AndroidViewModel {
     private final MutableLiveData<Bitmap> imageBitmap = new MutableLiveData<>();
-    public void setImageBitmap(Bitmap bitmap){
-        imageBitmap.setValue((bitmap));
-    }
     public MutableLiveData<Bitmap> getImageBitmap(){
         return  imageBitmap;
     }
 
-    private final Application application;
+    private CardItemRepository repository;
 
     public AddViewModel(@NonNull Application application) {
         super(application);
-        this.application = application;
-        initializeBitmap();
+        repository = new CardItemRepository(application);
 
     }
-
-    public void initializeBitmap(){
-        Drawable drawable = ResourcesCompat.getDrawable(application.getResources(), R.drawable.ic_launcher_foreground,
-                application.getTheme());
-        Bitmap bitmap = drawableToBitmap(drawable);
-
+    public void setImageBitmap(Bitmap bitmap){
         imageBitmap.setValue(bitmap);
     }
+
+    public LiveData<Bitmap> getBitmap(){
+        return imageBitmap;
+    }
+
+    public void addCardItem(CardItem item){
+        repository.addCardItem(item);
+    }
+
+
 
 
 

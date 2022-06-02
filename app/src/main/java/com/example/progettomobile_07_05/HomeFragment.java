@@ -64,6 +64,16 @@ public class HomeFragment extends Fragment  implements OnItemListener {
                 }
             });
 
+            FloatingActionButton floatingActionButton = getActivity().findViewById(R.id.fab_add);
+            floatingActionButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Utilities.insertFragment((AppCompatActivity) activity, new AddFragment(),
+                            AddFragment.class.getSimpleName());
+                }
+
+            });
+
 
 
         }else{

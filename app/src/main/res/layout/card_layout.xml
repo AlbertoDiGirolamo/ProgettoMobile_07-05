@@ -28,7 +28,8 @@
             android:scaleType="centerCrop"
             tools:srcCompat="@tools:sample/backgrounds/scenic"
 
-            android:contentDescription="@string/image_of_the_product"/>
+            android:contentDescription="@string/image_of_the_product"
+            android:src="@drawable/ic_baseline_android_24"/>
 
         <TextView
             android:id="@+id/product_name_textview"
