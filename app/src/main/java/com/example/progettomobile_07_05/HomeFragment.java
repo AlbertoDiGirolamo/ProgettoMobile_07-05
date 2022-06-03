@@ -51,6 +51,7 @@ public class HomeFragment extends Fragment  implements OnItemListener {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
         super.onViewCreated(view, savedInstanceState);
+
         MainActivity activity =(MainActivity) getActivity();
         if(activity != null){
             setRecyclerView(activity);
@@ -61,6 +62,8 @@ public class HomeFragment extends Fragment  implements OnItemListener {
                 public void onChanged(List<CardItem> cardItem) {
 
                     adapter.setData(cardItem);
+                    recyclerView.setAdapter(adapter);
+
                 }
             });
 

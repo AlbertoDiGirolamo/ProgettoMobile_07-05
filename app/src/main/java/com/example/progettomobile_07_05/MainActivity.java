@@ -10,6 +10,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -25,11 +26,13 @@ import com.example.progettomobile_07_05.RecyclerView.CardAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
-    private CardAdapter adapter;
-    private RecyclerView recyclerView;
     private AddViewModel addViewModel;
+    private CardAdapter adapter;
+    private int actualPage;
 
 
     @Override
@@ -54,31 +57,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        if (savedInstanceState == null){
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new MessageFragment()).commit();
+        /*if (savedInstanceState == null){
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,  new HomeFragment()).commit();
             //navigationView.setCheckedItem(R.id.nav_message);
-        }
-
-
-
-        //Utilities.insertFragment(this, new HomeFragment(), HomeFragment.class.getSimpleName());
-        //setRecyclerView(this);
-
-
-        FragmentActivity activity = this;
-        //View view = findViewById(R.id.fab_add).getRootView();
-
+        }*/
 
         addViewModel = new ViewModelProvider(this).get(AddViewModel.class);
+        actualPage = R.id.nav_home;
+        //getCardItemList
+
+
 
 
     }
-
-
-    /*public void openDrawer( DrawerLayout drawer) {
-        //DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.openDrawer(GravityCompat.START);
-    }*/
 
 
 
@@ -96,16 +87,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.nav_home:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
-                break;
+                if (actualPage != R.id.nav_home) {
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+                    actualPage = R.id.nav_home;
+                }
+                    break;
             case R.id.nav_message:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new MessageFragment()).commit();
+                if (actualPage != R.id.nav_message) {
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new MessageFragment()).commit();
+                    actualPage = R.id.nav_message;
+                }
                 break;
             case R.id.nav_profile:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ProfileFragment()).commit();
+                if (actualPage != R.id.nav_profile) {
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ProfileFragment()).commit();
+                    actualPage = R.id.nav_profile;
+                }
                 break;
             case R.id.nav_share:
+
                 Toast.makeText(this, "Share", Toast.LENGTH_SHORT).show();
+
                 break;
         }
         drawer.closeDrawer(GravityCompat.START);

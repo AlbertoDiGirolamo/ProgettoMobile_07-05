@@ -30,30 +30,54 @@
                 android:layout_height="wrap_content"
                 android:text="@string/product_name"
                 android:layout_margin="10dp"
+                android:textColor="@color/black"
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.Material3.TitleLarge"/>
-
+            <TextView
+                android:text="Prezzo:"
+                android:textColor="@color/gray"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                />
             <TextView
                 android:id="@+id/product_price"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/price"
+                android:textColor="@color/black"
                 android:layout_margin="10dp"
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.Material3.LabelMedium"/>
-
+            <TextView
+                android:text="Descrizione:"
+                android:textColor="@color/gray"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                />
             <TextView
                 android:id="@+id/product_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/description"
+                android:textColor="@color/black"
                 android:layout_margin="10dp"
                 android:textAppearance="@style/TextAppearance.Material3.LabelMedium"/>
+            <TextView
+                android:text="Posizione:"
+                android:textColor="@color/gray"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                />
+
             <TextView
                 android:id="@+id/product_position"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/position"
+                android:textColor="@color/black"
                 android:layout_margin="10dp"
                 android:textAppearance="@style/TextAppearance.Material3.LabelMedium"/>
 
