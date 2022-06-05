@@ -64,7 +64,11 @@ public class CardAdapter extends RecyclerView.Adapter<CardViewHolder> {
 
     @Override
     public int getItemCount() {
-        return cardItemList.size();
+        if (cardItemList != null)
+            return cardItemList.size();
+        return 0;
+
+
     }
 
     public  void setData(List<CardItem> list){
