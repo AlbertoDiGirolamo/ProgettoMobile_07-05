@@ -3,7 +3,7 @@ package com.example.progettomobile_07_05.RecyclerView;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DiffUtil;
 
-import com.example.progettomobile_07_05.CardItem;
+import com.example.progettomobile_07_05.Database.CardItem;
 
 import java.util.List;
 

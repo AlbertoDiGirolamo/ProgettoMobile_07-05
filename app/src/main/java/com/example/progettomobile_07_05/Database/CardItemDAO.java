@@ -7,8 +7,6 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Transaction;
 
-import com.example.progettomobile_07_05.CardItem;
-
 import java.util.List;
 
 @Dao
@@ -19,4 +17,8 @@ public interface CardItemDAO {
     @Transaction
     @Query("SELECT * FROM item ORDER BY item_id DESC")
     LiveData<List<CardItem>> getCardItems();
+
+    @Transaction
+    @Query("SELECT * FROM item ORDER BY item_id DESC")
+    LiveData<List<CardItem>> getFilteredCardItems();
 }

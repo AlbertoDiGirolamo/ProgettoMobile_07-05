@@ -105,7 +105,8 @@
                     android:layout_height="69dp"
                     android:hint="A che prezzo è in vendita? (Al kg)"
                     android:imeOptions="flagNoExtractUi"
-                    android:inputType="textNoSuggestions" />
+                    android:inputType="textNoSuggestions"
+                    android:cursorVisible="false"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button

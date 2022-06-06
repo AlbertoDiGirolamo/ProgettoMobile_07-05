@@ -18,6 +18,8 @@ import android.os.Bundle;
 import android.os.Looper;
 import android.provider.MediaStore;
 import android.provider.Settings;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,6 +40,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
 
+import com.example.progettomobile_07_05.Database.CardItem;
 import com.example.progettomobile_07_05.ViewModel.AddViewModel;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -50,6 +53,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -136,6 +140,47 @@ public class AddFragment extends Fragment {
         positionTIET = this.getView().findViewById(R.id.product_position_edittext);
 
         priceTIET.setRawInputType(Configuration.KEYBOARD_12KEY);
+
+        priceTIET.addTextChangedListener(new TextWatcher() {
+
+
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+            private String current = "";
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(!s.toString().equals(current)){
+                    priceTIET.removeTextChangedListener(this);
+
+                    String cleanString = s.toString().replaceAll("[€,.]", "");
+                    cleanString = cleanString.replaceAll("\\s+", "");
+                    //cleanString = cleanString.replaceAll(".", "");
+
+                    //Log.d("cleanString",String.valueOf(cleanString.length()));
+                    Log.d("cleanString",cleanString);
+                    double parsed = Double.parseDouble(cleanString);
+
+                    Log.d("parsed",String.valueOf(parsed));
+                    String formatted = NumberFormat.getCurrencyInstance(Locale.ITALY).format((parsed/100));
+                    //formatted = formatted.replaceAll("[.]", ",");
+                    current = formatted;
+                    priceTIET.setText(formatted);
+                    priceTIET.setSelection(formatted.length());
+
+                    priceTIET.addTextChangedListener(this);
+                }
+            }
+
+
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+        priceTIET.setMovementMethod(null);
 
 
         FloatingActionButton floatingActionButton = getActivity().findViewById(R.id.fab_add);

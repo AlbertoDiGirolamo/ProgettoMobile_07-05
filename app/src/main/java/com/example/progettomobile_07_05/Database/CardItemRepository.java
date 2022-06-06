@@ -4,8 +4,6 @@ import android.app.Application;
 
 import androidx.lifecycle.LiveData;
 
-import com.example.progettomobile_07_05.CardItem;
-
 import java.util.List;
 
 public class CardItemRepository {

@@ -5,31 +5,24 @@ import static android.webkit.ConsoleMessage.MessageLevel.LOG;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.progettomobile_07_05.Database.CardItem;
 import com.example.progettomobile_07_05.RecyclerView.CardAdapter;
 import com.example.progettomobile_07_05.RecyclerView.OnItemListener;
 import com.example.progettomobile_07_05.ViewModel.ListViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +38,11 @@ public class HomeFragment extends Fragment  implements OnItemListener {
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
-
+   /* @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }*/
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -75,6 +72,20 @@ public class HomeFragment extends Fragment  implements OnItemListener {
                             AddFragment.class.getSimpleName());
                 }
 
+            });
+
+            SearchView searchView = getActivity().findViewById(R.id.search_icon);
+            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    adapter.filter(query);
+                    return false;
+                }
+
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    return false;
+                }
             });
 
 
@@ -107,6 +118,24 @@ public class HomeFragment extends Fragment  implements OnItemListener {
             listViewModel.setItemSelected(adapter.getItemSelected(position));
         }
     }
+/*
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
 
+        MenuItem item = menu.findItem(R.id.search_icon);
+        SearchView searchView = (SearchView) item.getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
 
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adapter.getFilter().filter(newText);
+                return false;
+            }
+        });
+    }*/
 }
