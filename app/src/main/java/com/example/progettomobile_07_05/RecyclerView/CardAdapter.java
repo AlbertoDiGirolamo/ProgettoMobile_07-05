@@ -17,14 +17,15 @@ import com.example.progettomobile_07_05.Database.CardItem;
 import com.example.progettomobile_07_05.R;
 import com.example.progettomobile_07_05.Utilities;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CardAdapter extends RecyclerView.Adapter<CardViewHolder>{
-    List<CardItem> cardItemList;
+    ArrayList<CardItem> cardItemList;
     private Activity activity;
     private OnItemListener listener;
-    private List<CardItem> cardItemListNotFiltered;
+    private ArrayList<CardItem> cardItemListNotFiltered;
 
 
     public CardAdapter(OnItemListener listener, Activity activity){
@@ -75,7 +76,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardViewHolder>{
     public void filter(String text){
 
         ArrayList<CardItem> cardItemsFiltered = new ArrayList<>();
-        for (CardItem item : cardItemList){
+        for (CardItem item : cardItemListNotFiltered){
             if(item.getProductName().toLowerCase().contains(text.toLowerCase())){
                 cardItemsFiltered.add(item);
             }
@@ -83,6 +84,9 @@ public class CardAdapter extends RecyclerView.Adapter<CardViewHolder>{
         filterList(cardItemsFiltered);
 
 
+    }
+    public void notFilter(){
+        filterList(cardItemListNotFiltered);
     }
 
     public void filterList(ArrayList<CardItem> filteredList){

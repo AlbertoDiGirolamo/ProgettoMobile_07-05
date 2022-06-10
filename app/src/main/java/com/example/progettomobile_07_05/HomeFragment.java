@@ -84,6 +84,17 @@ public class HomeFragment extends Fragment  implements OnItemListener {
 
                 @Override
                 public boolean onQueryTextChange(String newText) {
+                    if(newText ==""){
+                        adapter.notFilter();
+                    }
+                    return false;
+                }
+
+            });
+            searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+                @Override
+                public boolean onClose() {
+                    adapter.notFilter();
                     return false;
                 }
             });
