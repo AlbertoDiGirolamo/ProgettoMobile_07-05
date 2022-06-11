@@ -11,7 +11,7 @@ public class CardItemRepository {
     private LiveData<List<CardItem>> cardItemList;
 
     public CardItemRepository(Application application){
-        CardItemDatabase db = CardItemDatabase.getDatabse(application);
+        Database db = Database.getDatabse(application);
         cardItemDAO = db.cardItemDAO();
         cardItemList = cardItemDAO.getCardItems();
     }
@@ -21,7 +21,7 @@ public class CardItemRepository {
     }
 
     public void addCardItem(CardItem cardItem){
-        CardItemDatabase.executor.execute(new Runnable() {
+        Database.executor.execute(new Runnable() {
             @Override
             public void run() {
                 cardItemDAO.addCardItem(cardItem);

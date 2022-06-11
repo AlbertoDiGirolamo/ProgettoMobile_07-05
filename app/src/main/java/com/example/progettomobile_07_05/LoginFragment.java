@@ -26,15 +26,15 @@ public class LoginFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        TextView username = (TextView) view.findViewById(R.id.username);
-        TextView password = (TextView) view.findViewById(R.id.password);
+        TextView mail = (TextView) view.findViewById(R.id.maillogin);
+        TextView password = (TextView) view.findViewById(R.id.passwordlogin);
 
         Button loginBtn = (Button) view.findViewById(R.id.loginbutton);
 
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (username.getText().toString().equals("admin") && password.getText().toString().equals("admin")) {
+                if (mail.getText().toString().equals("admin") && password.getText().toString().equals("admin")) {
 
                     Toast.makeText(getActivity(), "LOGIN OK", Toast.LENGTH_SHORT).show();
                 }

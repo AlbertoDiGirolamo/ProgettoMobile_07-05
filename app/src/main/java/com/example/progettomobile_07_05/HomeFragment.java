@@ -129,24 +129,5 @@ public class HomeFragment extends Fragment  implements OnItemListener {
             listViewModel.setItemSelected(adapter.getItemSelected(position));
         }
     }
-/*
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
 
-        MenuItem item = menu.findItem(R.id.search_icon);
-        SearchView searchView = (SearchView) item.getActionView();
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                adapter.getFilter().filter(newText);
-                return false;
-            }
-        });
-    }*/
 }

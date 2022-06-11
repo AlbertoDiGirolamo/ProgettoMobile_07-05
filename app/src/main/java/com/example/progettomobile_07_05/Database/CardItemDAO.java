@@ -18,7 +18,5 @@ public interface CardItemDAO {
     @Query("SELECT * FROM item ORDER BY item_id DESC")
     LiveData<List<CardItem>> getCardItems();
 
-    @Transaction
-    @Query("SELECT * FROM item ORDER BY item_id DESC")
-    LiveData<List<CardItem>> getFilteredCardItems();
+
 }
