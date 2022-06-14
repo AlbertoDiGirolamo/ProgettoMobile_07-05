@@ -53,6 +53,7 @@ public class HomeFragment extends Fragment  implements OnItemListener {
         NavigationView navigationView = getActivity().findViewById(R.id.nav_view);
         navigationView.getMenu().findItem(R.id.nav_home).setVisible(true);
         navigationView.getMenu().findItem(R.id.nav_message).setVisible(true);
+        navigationView.getMenu().findItem(R.id.nav_myproduct).setVisible(true);
 
         MainActivity activity =(MainActivity) getActivity();
         if(activity != null){

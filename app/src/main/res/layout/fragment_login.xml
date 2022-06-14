@@ -13,7 +13,7 @@
         android:textColor="@color/gray"
         android:textSize="35dp"
         android:textStyle="bold"
-        android:layout_margin="50dp"
+        android:layout_margin="40dp"
         android:gravity="center"/>
 
     <EditText
@@ -63,22 +63,39 @@
         android:layout_marginBottom="20dp"
         android:backgroundTint="@color/design_default_color_secondary"
         android:text="LOGIN" />
+
     <TextView
+        android:id="@+id/forgotpass"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/forgotpass"
         android:layout_below="@id/loginbutton"
-        android:text="Password dimenticata?"
-        android:textColor="@color/white_gray"
         android:layout_centerHorizontal="true"
-        android:layout_margin="20dp"/>
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:text="Password dimenticata?"
+        android:textColor="@color/white_gray" />
+    <TextView
+        android:id="@+id/linkregister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/forgotpass"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:text="oppure clicca per registrarti"
+        android:textColor="@color/white_gray"
+        android:textStyle="bold"/>
 
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/others"
-        android:text="oppure effettua il login con"
+        android:text="Effettua il login con"
         android:textColor="@color/white_gray"
         android:layout_above="@id/socialicons"
         android:layout_centerHorizontal="true"/>

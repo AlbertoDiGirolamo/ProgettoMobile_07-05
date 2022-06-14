@@ -16,11 +16,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="8dp"
-        android:text="Username"
+        android:text="Ciao, effettua il login"
+        android:id="@+id/navusername"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="miaemail@mail.com"/>
+        android:id="@+id/navemail"
+        android:text=""/>
 
 </LinearLayout>

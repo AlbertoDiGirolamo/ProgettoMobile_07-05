@@ -19,6 +19,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.progettomobile_07_05.Database.User;
@@ -94,6 +95,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public void setUser(User u){
         actualUser = u;
+        TextView tEmail = findViewById(R.id.navemail);
+        TextView tUsername = findViewById(R.id.navusername);
+        tEmail.setText(actualUser.getEmail());
+        tUsername.setText(actualUser.getNameUser());
     }
 
     @Override
@@ -125,9 +130,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
                 break;
             case R.id.nav_profile:
-                if (actualPage != R.id.nav_profile) {
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new LoginFragment()).commit();
+
+                if (actualPage != R.id.nav_profile && actualUser != null) {
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ProfileFragment()).commit();
                     actualPage = R.id.nav_profile;
+                    setActualMenuDrawer=2;
+                }
+                break;
+            case R.id.nav_myproduct:
+
+                if (actualPage != R.id.nav_myproduct) {
+                    Utilities.insertFragment(this, new MyProductFragment(), MyProductFragment.class.getSimpleName());
+                    actualPage = R.id.nav_myproduct;
                     setActualMenuDrawer=2;
                 }
                 break;

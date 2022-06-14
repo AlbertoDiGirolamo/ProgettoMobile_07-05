@@ -31,6 +31,7 @@ import com.example.progettomobile_07_05.ViewModel.ListViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -104,12 +105,16 @@ public class RegisterFragment extends Fragment {
                                 Toast.makeText(getActivity(), "Email gia esistente", Toast.LENGTH_SHORT).show();
 
                             } else {
-                                repository.addUser(new User(mail.getText().toString(), password.getText().toString(), name.getText().toString(), surname.getText().toString(), telephoneNumber.getText().toString()));
+                                User newUser = new User(mail.getText().toString(), password.getText().toString(), name.getText().toString(), surname.getText().toString(), telephoneNumber.getText().toString());
+                                repository.addUser(newUser);
                                 Toast.makeText(getActivity(), "Registrazione effettuata", Toast.LENGTH_SHORT).show();
                                 InputMethodManager manager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                                 manager.hideSoftInputFromWindow(view.getWindowToken(), 0);
                                 NavigationView navigationView = getActivity().findViewById(R.id.nav_view);
                                 navigationView.getMenu().getItem(0).setChecked(true);
+                                List<User> listUser = new ArrayList<>();
+                                listUser.add(newUser);
+                                ((MainActivity)getActivity()).setUser(getUser(listUser, mail.getText().toString()));
 
                                 Utilities.insertFragment((AppCompatActivity) getActivity(), new HomeFragment(), HomeFragment.class.getSimpleName());
                             }
@@ -125,6 +130,15 @@ public class RegisterFragment extends Fragment {
 
     }
 
+    public User getUser(List<User> userList, String emailUser){
+
+        for (User u: userList){
+            if(u.getEmail().matches(emailUser)){
+                return u;
+            }
+        }
+        return null;
+    }
 
     public static boolean isNumeric(String strNum) {
         if (strNum == null) {

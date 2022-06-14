@@ -48,6 +48,7 @@ public class LoginFragment extends Fragment {
         NavigationView navigationView = getActivity().findViewById(R.id.nav_view);
         navigationView.getMenu().findItem(R.id.nav_home).setVisible(false);
         navigationView.getMenu().findItem(R.id.nav_message).setVisible(false);
+        navigationView.getMenu().findItem(R.id.nav_myproduct).setVisible(false);
 
         EditText mail = (EditText) view.findViewById(R.id.maillogin);
         EditText password = (EditText) view.findViewById(R.id.passwordlogin);
@@ -86,6 +87,17 @@ public class LoginFragment extends Fragment {
                 });
             }
         });
+        TextView linkToRegister = (TextView) view.findViewById(R.id.linkregister);
+        linkToRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Utilities.insertFragment((AppCompatActivity) getActivity(), new RegisterFragment(), RegisterFragment.class.getSimpleName());
+            }
+        });
+
+
+
+
     }
     public User getUser(List<User> userList, String emailUser){
 
