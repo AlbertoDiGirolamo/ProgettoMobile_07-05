@@ -17,7 +17,7 @@ public abstract class Database extends RoomDatabase {
     private static volatile Database ISTANCE;
     static final ExecutorService executor = Executors.newFixedThreadPool(4);
 
-    static Database getDatabse(final Context context){
+    public static Database getDatabase(final Context context){
 
         if(ISTANCE == null){
             synchronized (Database.class){

@@ -11,16 +11,17 @@ public class UserRepository {
     private LiveData<List<User>> userList;
 
     public UserRepository(Application application){
-        Database db = Database.getDatabse(application);
+        Database db = Database.getDatabase(application);
         userDAO = db.userDAO();
         userList = userDAO.getUsers();
+
     }
 
     public LiveData<List<User>> getUsersList(){
         return  userList;
     }
 
-    public LiveData<User> getUserFromEmail(String email){
+    public User getUserFromEmail(String email){
         return userDAO.getUserEmail(email);
     }
     public LiveData<User> checkLogin(String email, String password){

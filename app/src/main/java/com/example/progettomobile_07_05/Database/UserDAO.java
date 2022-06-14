@@ -22,8 +22,9 @@ public interface UserDAO {
             "password LIKE :password LIMIT 1")
     LiveData<User> getUserForLogin(String email, String password);
 
+    @Transaction
     @Query("SELECT * FROM user WHERE email LIKE :email")
-    LiveData<User> getUserEmail(String email);
+    User getUserEmail(String email);
 
 
 }

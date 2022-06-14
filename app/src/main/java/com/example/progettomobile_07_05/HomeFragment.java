@@ -23,6 +23,7 @@ import com.example.progettomobile_07_05.RecyclerView.CardAdapter;
 import com.example.progettomobile_07_05.RecyclerView.OnItemListener;
 import com.example.progettomobile_07_05.ViewModel.ListViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +49,10 @@ public class HomeFragment extends Fragment  implements OnItemListener {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
         super.onViewCreated(view, savedInstanceState);
+
+        NavigationView navigationView = getActivity().findViewById(R.id.nav_view);
+        navigationView.getMenu().findItem(R.id.nav_home).setVisible(true);
+        navigationView.getMenu().findItem(R.id.nav_message).setVisible(true);
 
         MainActivity activity =(MainActivity) getActivity();
         if(activity != null){

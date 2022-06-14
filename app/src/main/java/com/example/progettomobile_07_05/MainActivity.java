@@ -21,6 +21,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.progettomobile_07_05.Database.User;
+import com.example.progettomobile_07_05.Database.UserRepository;
 import com.example.progettomobile_07_05.ViewModel.AddViewModel;
 import com.example.progettomobile_07_05.RecyclerView.CardAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -33,6 +35,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private AddViewModel addViewModel;
     private CardAdapter adapter;
     private int actualPage;
+    private int setActualMenuDrawer;
+
+    private User actualUser = null;
 
 
     @Override
@@ -41,14 +46,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         setContentView(R.layout.activity_main);
 
-        if (savedInstanceState == null)
-            Utilities.insertFragment(this, new HomeFragment(), HomeFragment.class.getSimpleName());
+        if (savedInstanceState == null) {
+            if (actualUser == null){
+                Utilities.insertFragment(this, new LoginFragment(), LoginFragment.class.getSimpleName());
+                setActualMenuDrawer=2;
+
+            }else{
+                Utilities.insertFragment(this, new HomeFragment(), HomeFragment.class.getSimpleName());
+                setActualMenuDrawer=0;
+            }
+
+        }
 
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         drawer = findViewById(R.id.drawer_layout);
+
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -64,15 +79,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }*/
 
         addViewModel = new ViewModelProvider(this).get(AddViewModel.class);
+
         actualPage = R.id.nav_home;
         //getCardItemList
 
-
+        setActualMenuDrawer();
 
 
     }
+    public void setActualMenuDrawer(){
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.getMenu().getItem(setActualMenuDrawer).setChecked(true);
+    }
 
-
+    public void setUser(User u){
+        actualUser = u;
+    }
 
     @Override
     public void onBackPressed() {
@@ -84,6 +106,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
@@ -91,18 +114,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 if (actualPage != R.id.nav_home) {
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
                     actualPage = R.id.nav_home;
+                    setActualMenuDrawer=0;
                 }
                     break;
             case R.id.nav_message:
                 if (actualPage != R.id.nav_message) {
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new MessageFragment()).commit();
                     actualPage = R.id.nav_message;
+                    setActualMenuDrawer=1;
                 }
                 break;
             case R.id.nav_profile:
                 if (actualPage != R.id.nav_profile) {
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new RegisterFragment()).commit();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new LoginFragment()).commit();
                     actualPage = R.id.nav_profile;
+                    setActualMenuDrawer=2;
                 }
                 break;
             case R.id.nav_share:
@@ -128,18 +154,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

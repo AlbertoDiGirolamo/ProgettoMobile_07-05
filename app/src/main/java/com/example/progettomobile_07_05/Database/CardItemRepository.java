@@ -11,9 +11,10 @@ public class CardItemRepository {
     private LiveData<List<CardItem>> cardItemList;
 
     public CardItemRepository(Application application){
-        Database db = Database.getDatabse(application);
+        Database db = Database.getDatabase(application);
         cardItemDAO = db.cardItemDAO();
         cardItemList = cardItemDAO.getCardItems();
+
     }
 
     public LiveData<List<CardItem>> getCardItemList(){
