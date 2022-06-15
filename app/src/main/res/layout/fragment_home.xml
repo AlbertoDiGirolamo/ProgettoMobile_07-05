@@ -6,6 +6,6 @@
     android:id="@+id/fragment_home">
 
 
-    <include layout="@layout/list_card"></include>
+    <include layout="@layout/list_card_home"></include>
 
 </RelativeLayout>

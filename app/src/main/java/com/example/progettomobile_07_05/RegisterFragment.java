@@ -74,7 +74,7 @@ public class RegisterFragment extends Fragment {
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                addUser = false;
 
 
                 listViewModel = new ViewModelProvider(activity).get(ListViewModel.class);

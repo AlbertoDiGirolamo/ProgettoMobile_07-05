@@ -198,9 +198,11 @@ public class AddFragment extends Fragment {
                     }
                     if (productTIET.getText() != null && descriptionTIET.getText() != null
                             && priceTIET.getText() != null && positionTIET.getText() != null) {
+
                         addViewModel.addCardItem(new CardItem(imageUriString, productTIET.getText().toString(),
                                 priceTIET.getText().toString(), descriptionTIET.getText().toString(),
-                                positionTIET.getText().toString()));
+                                positionTIET.getText().toString(), ((MainActivity)getActivity()).getActualUser().getEmail()));
+
                         addViewModel.setImageBitmap(null);
 
                         ((AppCompatActivity) activity).getSupportFragmentManager().popBackStack();

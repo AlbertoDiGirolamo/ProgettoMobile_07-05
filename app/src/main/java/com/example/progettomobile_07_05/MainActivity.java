@@ -100,6 +100,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         tEmail.setText(actualUser.getEmail());
         tUsername.setText(actualUser.getNameUser());
     }
+    public User getActualUser(){
+        return actualUser;
+    }
 
     @Override
     public void onBackPressed() {

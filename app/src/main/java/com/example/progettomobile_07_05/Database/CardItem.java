@@ -26,15 +26,19 @@ public class CardItem {
     @ColumnInfo(name = "item_position")
     private String productPosition;
 
+    @ColumnInfo(name = "email")
+    private String emailUser;
 
 
 
-    public CardItem(String imageResource, String productName, String productPrice, String productDescription, String productPosition){
+
+    public CardItem(String imageResource, String productName, String productPrice, String productDescription, String productPosition, String emailUser){
         this.imageResource = imageResource;
         this.productName = productName;
         this.productPrice = productPrice;
         this.productDescription = productDescription;
         this.productPosition = productPosition;
+        this.emailUser = emailUser;
 
 
     }
@@ -57,6 +61,10 @@ public class CardItem {
 
     public String getProductPosition() {
         return productPosition;
+    }
+
+    public String getEmailUser() {
+        return emailUser;
     }
 
     public int getId() {

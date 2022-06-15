@@ -6,6 +6,6 @@
     android:id="@+id/fragment_myproduct">
 
 
-    <include layout="@layout/list_card"></include>
+    <include layout="@layout/list_card_myproduct"></include>
 
 </RelativeLayout>

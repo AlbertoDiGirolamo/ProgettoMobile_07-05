@@ -25,7 +25,6 @@ import com.example.progettomobile_07_05.ViewModel.ListViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class HomeFragment extends Fragment  implements OnItemListener {
@@ -55,7 +54,12 @@ public class HomeFragment extends Fragment  implements OnItemListener {
         navigationView.getMenu().findItem(R.id.nav_message).setVisible(true);
         navigationView.getMenu().findItem(R.id.nav_myproduct).setVisible(true);
 
+
         MainActivity activity =(MainActivity) getActivity();
+
+        FloatingActionButton fl = activity.findViewById(R.id.fab_add);
+        fl.setVisibility(View.VISIBLE);
+
         if(activity != null){
             setRecyclerView(activity);
 
@@ -116,7 +120,7 @@ public class HomeFragment extends Fragment  implements OnItemListener {
 
 
     private void setRecyclerView(final Activity activity){
-        recyclerView = activity.findViewById(R.id.recycler_view);
+        recyclerView = activity.findViewById(R.id.recycler_view_home);
         recyclerView.setHasFixedSize(true);
 
 
