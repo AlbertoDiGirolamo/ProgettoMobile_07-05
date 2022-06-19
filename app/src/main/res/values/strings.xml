@@ -21,4 +21,5 @@
     <string name="product_position">product_position</string>
     <string name="home">home</string>
     <string name="position">position</string>
+    <string name="title_activity_maps">MapsActivity</string>
 </resources>
