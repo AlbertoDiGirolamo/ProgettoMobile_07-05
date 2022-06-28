@@ -35,6 +35,8 @@ import android.os.Bundle;
 import android.os.Looper;
 import android.provider.Settings;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -203,7 +205,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     /*Intent intent = new Intent();
                     intent.setClass(getApplicationContext(), MapsActivity.class);
                     startActivity(intent);*/
-                    Utilities.insertFragment(this, new MapFragment(), MapFragment.class.getSimpleName());
+                    Utilities.insertFragment(this, new FilterFragment(), FilterFragment.class.getSimpleName());
                     actualPage = R.id.nav_message;
                     setActualMenuDrawer = 1;
                 }
@@ -224,6 +226,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     setActualMenuDrawer = 2;
                 }
                 break;
+
             case R.id.nav_share:
 
                 Toast.makeText(this, "Share", Toast.LENGTH_SHORT).show();
@@ -309,5 +312,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
     public void setActualPosition(Location actualPosition) {
         this.actualPosition = actualPosition;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.home_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.openmap:
+                Utilities.insertFragment(this, new MapFragment(), MapFragment.class.getSimpleName());
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

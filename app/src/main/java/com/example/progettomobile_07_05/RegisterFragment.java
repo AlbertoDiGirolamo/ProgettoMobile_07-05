@@ -4,6 +4,8 @@ import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -15,6 +17,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
@@ -47,7 +50,15 @@ public class RegisterFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
         return inflater.inflate(R.layout.fragment_register, container, false);
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(@NonNull Menu menu) {
+        MenuItem item= menu.findItem(R.id.openmap);
+        item.setVisible(false);
+        super.onPrepareOptionsMenu(menu);
     }
 
     @Override
@@ -59,6 +70,8 @@ public class RegisterFragment extends Fragment {
         MainActivity activity =(MainActivity) getActivity();
         FloatingActionButton fl = activity.findViewById(R.id.fab_add);
         fl.setVisibility(View.INVISIBLE);
+        SearchView searchView = activity.findViewById(R.id.search_icon);
+        searchView.setVisibility(View.INVISIBLE);
 
 
         EditText mail = (EditText) view.findViewById(R.id.emailregister);

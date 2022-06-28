@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MyVegetableGarden</string>
+    <string name="app_name">IlMioOrto</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="communicate">Communicate</string>
@@ -22,4 +22,8 @@
     <string name="home">home</string>
     <string name="position">position</string>
     <string name="title_activity_maps">MapsActivity</string>
+    <string-array name="rangeSlider">
+        <item>20</item>
+        <item>70</item>
+    </string-array>
 </resources>

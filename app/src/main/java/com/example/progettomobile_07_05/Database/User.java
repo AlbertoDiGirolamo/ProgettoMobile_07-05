@@ -1,16 +1,14 @@
 package com.example.progettomobile_07_05.Database;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "user")
 public class User {
-
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "user_id")
-    private int id;
-
+    @NonNull
+    @PrimaryKey
     @ColumnInfo(name = "email")
     private String email;
 
@@ -25,7 +23,18 @@ public class User {
 
     @ColumnInfo(name = "telephone_number")
     private String telephoneNumber;
+    /*
+    CREATE DATABASE product_database;
 
+    CREATE TABLE user (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            email VARCHAR(30),
+    password VARCHAR(30),
+    name VARCHAR(30),
+    surname VARCHAR(30),
+    telephone_number VARCHAR(30)
+
+  );*/
 
 
 
@@ -60,11 +69,5 @@ public class User {
         return telephoneNumber;
     }
 
-    public int getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 }

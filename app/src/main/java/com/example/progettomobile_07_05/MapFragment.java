@@ -29,12 +29,14 @@ public class MapFragment extends Fragment {
     private GoogleMap mMap;
     private LatLng actualPosition = new LatLng(44.137221, 12.241975);
     private Circle circle = null;
-
+    private SeekBar seekBar;
+    private TextView msg;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_map, container, false);
+
 
 
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager()
@@ -45,6 +47,24 @@ public class MapFragment extends Fragment {
                 mMap = googleMap;
                 mMap.addMarker(new MarkerOptions().position(actualPosition).title("Cesena"));
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(actualPosition,10));
+
+                Location pos =  ((MainActivity)getActivity()).getActualPosition();
+                actualPosition = new LatLng(pos.getLatitude(),pos.getLongitude());
+
+                if (((MainActivity)getActivity()).getCircle()==null){
+                    seekBar.setProgress(5);
+                }else{
+                    seekBar.setProgress((int) ((MainActivity)getActivity()).getCircle().getRadius()/ 1000);
+                }
+
+                /*msg.setText(seekBar.getProgress()+" km");
+                circle = mMap.addCircle(new CircleOptions()
+                        .center(actualPosition)
+                        .radius(seekBar.getProgress()*1000)
+                        .strokeWidth(0)
+                        .strokeColor(Color.parseColor("#E671cce7"))
+                        .fillColor(Color.parseColor("#8071cce7")));
+                ((MainActivity)getActivity()).setCircle(circle);*/
 
                 /*googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
 
@@ -71,10 +91,10 @@ public class MapFragment extends Fragment {
         FloatingActionButton fl = activity.findViewById(R.id.fab_add);
         fl.setVisibility(View.INVISIBLE);
 
-        Location pos =  ((MainActivity)getActivity()).getActualPosition();
-        actualPosition = new LatLng(pos.getLatitude(),pos.getLongitude());
 
-        SeekBar seekBar =getActivity().findViewById(R.id.seekbar);
+        seekBar =getActivity().findViewById(R.id.seekbar);
+        msg = getActivity().findViewById(R.id.distancetext);
+
 
 
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -82,7 +102,7 @@ public class MapFragment extends Fragment {
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
                 if (circle != null)
                     circle.remove();
-                TextView msg = getActivity().findViewById(R.id.distancetext);
+
                 msg.setText(seekBar.getProgress()+" km");
                 circle = mMap.addCircle(new CircleOptions()
                         .center(actualPosition)

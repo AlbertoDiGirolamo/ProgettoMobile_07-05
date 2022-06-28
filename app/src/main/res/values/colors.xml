@@ -10,4 +10,5 @@
     <color name="cream">#E8DCCA</color>
     <color name="gray">#4F4F4F</color>
     <color name="white_gray">#8F8F8F</color>
+    <color name="Transparent">#00000000</color>
 </resources>

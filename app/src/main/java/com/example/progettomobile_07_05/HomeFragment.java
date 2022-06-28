@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultCallback;
@@ -49,6 +50,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -71,6 +73,7 @@ public class HomeFragment extends Fragment  implements OnItemListener {
     }
 
 
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
@@ -87,6 +90,8 @@ public class HomeFragment extends Fragment  implements OnItemListener {
         FloatingActionButton fl = activity.findViewById(R.id.fab_add);
         fl.setVisibility(View.VISIBLE);
 
+
+
         if(activity != null){
             setRecyclerView(activity);
 
@@ -94,8 +99,30 @@ public class HomeFragment extends Fragment  implements OnItemListener {
             listViewModel.getCardItems().observe(activity, new Observer<List<CardItem>>() {
                 @Override
                 public void onChanged(List<CardItem> cardItem) {
+                    circle = ((MainActivity)getActivity()).getCircle();
+                    location = ((MainActivity)getActivity()).getActualPosition();
+                    List<CardItem> cardItemFiltered = new ArrayList<>();
+                    for (CardItem c : cardItem){
+                        Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
+                        List<Address> addresses = new ArrayList<>();
+                        try {
+                            addresses = geocoder.getFromLocationName(c.getProductPosition(), 1);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        if(addresses.size() > 0) {
+                            Double latitude= addresses.get(0).getLatitude();
+                            Double longitude= addresses.get(0).getLongitude();
+                            Location locationProduct = new Location("locationProduct");
+                            locationProduct.setLatitude(latitude);
+                            locationProduct.setLongitude(longitude);
+                            if(isProductInCircle(locationProduct)){
+                                cardItemFiltered.add(c);
+                            }
+                        }
 
-                    adapter.setData(cardItem);
+                    }
+                    adapter.setData(cardItemFiltered);
                     recyclerView.setAdapter(adapter);
 
                 }
@@ -143,7 +170,7 @@ public class HomeFragment extends Fragment  implements OnItemListener {
         }
 
         //43.129479, 12.970972
-        Location roma = new Location("");
+        /*Location roma = new Location("");
         roma.setLatitude(41.859816);
         roma.setLongitude(12.548127);
         Location cesena = new Location("");
@@ -152,7 +179,8 @@ public class HomeFragment extends Fragment  implements OnItemListener {
         circle = ((MainActivity)getActivity()).getCircle();
         location = ((MainActivity)getActivity()).getActualPosition();
         //a@gisProductInCircle(roma);
-        isProductInCircle(roma);
+        isProductInCircle(roma);*/
+
     }
 
     private boolean isProductInCircle(Location productLocation){
@@ -170,11 +198,11 @@ public class HomeFragment extends Fragment  implements OnItemListener {
 
         if( distance[0] > radius ){
 
-            Toast.makeText(getActivity(), "Outside, distance from center: " + distance[0] + " radius: " + radius, Toast.LENGTH_LONG).show();
-            return true;
-        } else {
-            Toast.makeText(getActivity(), "Inside, distance from center: " + distance[0] + " radius: " + radius , Toast.LENGTH_LONG).show();
+            //Toast.makeText(getActivity(), "Outside, distance from center: " + distance[0] + " radius: " + radius, Toast.LENGTH_LONG).show();
             return false;
+        } else {
+            //Toast.makeText(getActivity(), "Inside, distance from center: " + distance[0] + " radius: " + radius , Toast.LENGTH_LONG).show();
+            return true;
         }
 
     }

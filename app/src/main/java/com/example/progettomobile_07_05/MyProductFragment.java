@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -38,6 +39,8 @@ public class MyProductFragment extends Fragment  implements OnItemListener{
         super.onViewCreated(view, savedInstanceState);
 
         MainActivity activity =(MainActivity) getActivity();
+
+
         if(activity != null) {
             setRecyclerView(activity);
 

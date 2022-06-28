@@ -1,8 +1,11 @@
 package com.example.progettomobile_07_05;
 
+import android.content.ClipData;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,7 +37,15 @@ public class LoginFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
         return inflater.inflate(R.layout.fragment_login, container, false);
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(@NonNull Menu menu) {
+        MenuItem item= menu.findItem(R.id.openmap);
+        item.setVisible(false);
+        super.onPrepareOptionsMenu(menu);
     }
 
     @Override
@@ -44,6 +55,9 @@ public class LoginFragment extends Fragment {
 
         FloatingActionButton fl = activity.findViewById(R.id.fab_add);
         fl.setVisibility(View.INVISIBLE);
+        SearchView searchView = activity.findViewById(R.id.search_icon);
+        searchView.setVisibility(View.INVISIBLE);
+
 
         NavigationView navigationView = getActivity().findViewById(R.id.nav_view);
         navigationView.getMenu().findItem(R.id.nav_home).setVisible(false);

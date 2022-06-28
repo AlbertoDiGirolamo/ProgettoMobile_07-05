@@ -1,10 +1,18 @@
 package com.example.progettomobile_07_05.Database;
 
+import static androidx.room.ForeignKey.CASCADE;
+
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "item")
+
+@Entity(tableName = "item", foreignKeys = @ForeignKey(entity = User.class,
+        parentColumns = "email",
+        childColumns = "email",
+        onDelete = CASCADE))
 public class CardItem {
 
     @PrimaryKey(autoGenerate = true)
@@ -25,6 +33,12 @@ public class CardItem {
 
     @ColumnInfo(name = "item_position")
     private String productPosition;
+
+    /*@ColumnInfo(name = "latitude")
+    private String latitude;
+
+    @ColumnInfo(name = "longitude")
+    private String longitude;*/
 
     @ColumnInfo(name = "email")
     private String emailUser;
@@ -62,6 +76,12 @@ public class CardItem {
     public String getProductPosition() {
         return productPosition;
     }
+    /*public String getLatitude() {
+        return latitude;
+    }
+    public String getLongitude() {
+        return longitude;
+    }*/
 
     public String getEmailUser() {
         return emailUser;

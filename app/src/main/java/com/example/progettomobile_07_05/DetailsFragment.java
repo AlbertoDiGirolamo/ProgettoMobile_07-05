@@ -2,12 +2,14 @@ package com.example.progettomobile_07_05;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -15,18 +17,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
 
 import com.example.progettomobile_07_05.Database.CardItem;
+import com.example.progettomobile_07_05.Database.CardItemRepository;
+import com.example.progettomobile_07_05.Database.User;
 import com.example.progettomobile_07_05.ViewModel.ListViewModel;
+
+import java.util.List;
 
 public class DetailsFragment extends Fragment {
 
@@ -36,6 +46,7 @@ public class DetailsFragment extends Fragment {
     private TextView positionTextView;
 
     private ImageView productImageView;
+    private ListViewModel listViewModel;
 
 
     @Override
@@ -58,6 +69,7 @@ public class DetailsFragment extends Fragment {
         if(activity != null){
             SearchView sv = activity.findViewById(R.id.search_icon);
             sv.setVisibility(View.INVISIBLE);
+
             //Utilities.setUpToolbar((AppCompatActivity) activity, "Details");
 
             nameTextView = view.findViewById(R.id.product_name);
@@ -65,6 +77,8 @@ public class DetailsFragment extends Fragment {
             priceTextView = view.findViewById(R.id.product_price);
             positionTextView = view.findViewById(R.id.product_position);
             productImageView = view.findViewById(R.id.product_image);
+
+
 
             ListViewModel listViewModel =
                     new ViewModelProvider((ViewModelStoreOwner) activity).get(ListViewModel.class);
@@ -87,7 +101,42 @@ public class DetailsFragment extends Fragment {
                             productImageView.setBackgroundColor(Color.WHITE);
                         }
                     }
+
+                    FragmentManager fm = getFragmentManager();
+                    int count = getFragmentManager().getBackStackEntryCount();
+                    String name = fm.getBackStackEntryAt(count - 2).getName();
+                    if(!name.equals("MyProductFragment")){
+                        getActivity().findViewById(R.id.deleteitem).setVisibility(View.INVISIBLE);
+                    }
+                    getActivity().findViewById(R.id.deleteitem).setOnClickListener(l->{
+                        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                switch (which){
+                                    case DialogInterface.BUTTON_POSITIVE:
+                                        CardItemRepository cardItemRepository = new CardItemRepository(activity.getApplication());
+                                        cardItemRepository.deleteItem(cardItem.getId());
+
+                                        Utilities.insertFragment((AppCompatActivity) getActivity(), new MyProductFragment(), MyProductFragment.class.getSimpleName());
+                                        Toast.makeText(getActivity(), "Prodotto eliminato con successo", Toast.LENGTH_SHORT).show();
+                                        break;
+
+                                    case DialogInterface.BUTTON_NEGATIVE:
+
+                                        break;
+                                }
+                            }
+                        };
+
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                        builder.setMessage("Sei sicuro di voler eliminare il prodotto?").setPositiveButton("Si", dialogClickListener)
+                                .setNegativeButton("No", dialogClickListener).show();
+
+                    });
+
+
                 }
+
             });
 
             view.findViewById(R.id.share_button).setOnClickListener(new View.OnClickListener() {
@@ -108,6 +157,7 @@ public class DetailsFragment extends Fragment {
             });
 
         }
+
     }
 
     @Override

@@ -18,5 +18,6 @@ public interface CardItemDAO {
     @Query("SELECT * FROM item ORDER BY item_id DESC")
     LiveData<List<CardItem>> getCardItems();
 
-
+    @Query("DELETE FROM item WHERE item_id = :id")
+    void deleteItem(int id);
 }

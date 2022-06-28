@@ -27,6 +27,7 @@
             android:layout_marginBottom="20dp"
             android:id="@+id/seekbar"
             android:layout_marginStart="10dp"
+            
             android:min="0"
             android:max="20"
             android:progressBackgroundTint="@color/white_gray"/>

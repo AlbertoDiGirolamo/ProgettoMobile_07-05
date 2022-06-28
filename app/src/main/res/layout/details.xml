@@ -88,6 +88,15 @@
                 android:text="@string/share"
                 android:layout_gravity="center"
                 android:layout_margin="10dp"/>
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_baseline_delete_outline_24"
+                android:layout_gravity="center"
+
+                android:id="@+id/deleteitem"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"/>
         </androidx.appcompat.widget.LinearLayoutCompat>
     </ScrollView>
 

@@ -15,7 +15,7 @@ public interface UserDAO {
     void addUser(User user);
 
     @Transaction
-    @Query("SELECT * FROM user ORDER BY user_id DESC")
+    @Query("SELECT * FROM user")
     LiveData<List<User>> getUsers();
 
     @Query("SELECT * FROM user WHERE email LIKE :email AND " +

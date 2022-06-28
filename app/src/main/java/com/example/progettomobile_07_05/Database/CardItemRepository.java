@@ -29,4 +29,13 @@ public class CardItemRepository {
             }
         });
     }
+
+    public void deleteItem(int id){
+        Database.executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                cardItemDAO.deleteItem(id);
+            }
+        });
+    }
 }
