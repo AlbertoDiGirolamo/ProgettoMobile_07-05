@@ -168,11 +168,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     public void setUser(User u) {
-        actualUser = u;
-        TextView tEmail = findViewById(R.id.navemail);
-        TextView tUsername = findViewById(R.id.navusername);
-        tEmail.setText(actualUser.getEmail());
-        tUsername.setText(actualUser.getNameUser());
+        if(u == null){
+            actualUser = null;
+            TextView tEmail = findViewById(R.id.navemail);
+            TextView tUsername = findViewById(R.id.navusername);
+            tEmail.setText("");
+            tUsername.setText("Ciao, effettua il login");
+
+        }else{
+            actualUser = u;
+            TextView tEmail = findViewById(R.id.navemail);
+            TextView tUsername = findViewById(R.id.navusername);
+            tEmail.setText(actualUser.getEmail());
+            tUsername.setText(actualUser.getNameUser());
+        }
+
     }
 
     public User getActualUser() {
@@ -324,8 +334,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.openmap:
-                Utilities.insertFragment(this, new MapFragment(), MapFragment.class.getSimpleName());
+            case R.id.openfilter:
+                Utilities.insertFragment(this, new FilterFragment(), FilterFragment.class.getSimpleName());
                 return true;
         }
         return super.onOptionsItemSelected(item);

@@ -99,15 +99,20 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/product_position_textinput">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <EditText
                     android:id="@+id/price_edittext"
                     android:layout_width="match_parent"
                     android:layout_height="69dp"
-                    android:hint="A che prezzo è in vendita? (Al kg)"
-                    android:imeOptions="flagNoExtractUi"
-                    android:inputType="textNoSuggestions"
-                    android:cursorVisible="false"/>
+                    android:hint="A che prezzo è in vendita? (€/Kg)"
+                    android:cursorVisible="false"
+                    android:ems="10"
+                    android:digits="0123456789."
+                    android:inputType="number"/>
+
+                    />
             </com.google.android.material.textfield.TextInputLayout>
+            <!--android:ems="10"
+                    android:digits="0123456789,"-->
 
             <Button
                 android:id="@+id/capture_button"
@@ -129,9 +134,9 @@
                 android:layout_marginTop="40dp"
                 android:layout_marginEnd="30dp"
                 android:layout_marginBottom="20dp"
-                android:background="@color/purple_500"
+                android:background="@color/Transparent"
                 android:contentDescription="@string/image_captured"
-                android:src="@drawable/ic_baseline_android_24"
+                android:src="@drawable/verdura_background"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -160,6 +165,8 @@
                     android:inputType="textNoSuggestions" />
 
             </com.google.android.material.textfield.TextInputLayout>
+
+
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

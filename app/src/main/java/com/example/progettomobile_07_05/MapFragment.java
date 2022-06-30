@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 
 
@@ -36,6 +38,7 @@ public class MapFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_map, container, false);
+
 
 
 
@@ -87,10 +90,12 @@ public class MapFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        MainActivity activity =(MainActivity) getActivity();
-        FloatingActionButton fl = activity.findViewById(R.id.fab_add);
-        fl.setVisibility(View.INVISIBLE);
 
+
+        FloatingActionButton fl = getActivity().findViewById(R.id.fab_add);
+        fl.setVisibility(View.INVISIBLE);
+        SearchView searchView = getActivity().findViewById(R.id.search_icon);
+        searchView.setVisibility(View.INVISIBLE);
 
         seekBar =getActivity().findViewById(R.id.seekbar);
         msg = getActivity().findViewById(R.id.distancetext);
@@ -122,6 +127,13 @@ public class MapFragment extends Fragment {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
 
+            }
+        });
+
+        getActivity().findViewById(R.id.btnsalvamap).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Utilities.insertFragment((AppCompatActivity) getActivity(), new FilterFragment(), FilterFragment.class.getSimpleName());
             }
         });
     }

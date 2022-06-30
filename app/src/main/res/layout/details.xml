@@ -19,10 +19,12 @@
                 android:id="@+id/product_image"
                 android:layout_width="match_parent"
                 android:layout_height="108dp"
-                android:background="@color/purple_500"
+                android:background="@color/Transparent"
                 app:srcCompat="@drawable/ic_baseline_android_24"
                 android:layout_margin="10dp"
-                android:contentDescription="@string/image_of_the_product" />
+                android:contentDescription="@string/image_of_the_product"
+
+                />
 
             <TextView
                 android:id="@+id/product_name"
@@ -38,23 +40,33 @@
                 android:textColor="@color/gray"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                />
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp">
+
+            </TextView>
+
+
             <TextView
                 android:id="@+id/product_price"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/price"
                 android:textColor="@color/black"
-                android:layout_margin="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:textSize="20dp"
                 android:textAlignment="center"
-                android:textAppearance="@style/TextAppearance.Material3.LabelMedium"/>
+                android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
+                />
             <TextView
                 android:text="Descrizione:"
                 android:textColor="@color/gray"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 />
             <TextView
                 android:id="@+id/product_description"
@@ -62,14 +74,20 @@
                 android:layout_height="wrap_content"
                 android:text="@string/description"
                 android:textColor="@color/black"
-                android:layout_margin="10dp"
+                android:textSize="20dp"
+                android:textAlignment="center"
+
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:textAppearance="@style/TextAppearance.Material3.LabelMedium"/>
             <TextView
                 android:text="Posizione:"
                 android:textColor="@color/gray"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 />
 
             <TextView
@@ -78,8 +96,12 @@
                 android:layout_height="wrap_content"
                 android:text="@string/position"
                 android:textColor="@color/black"
-                android:layout_margin="10dp"
-                android:textAppearance="@style/TextAppearance.Material3.LabelMedium"/>
+
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
+                android:textAlignment="center"
+                android:textSize="20dp"/>
 
             <Button
                 android:id="@+id/share_button"
@@ -87,7 +109,9 @@
                 android:layout_height="wrap_content"
                 android:text="@string/share"
                 android:layout_gravity="center"
-                android:layout_margin="10dp"/>
+                android:layout_marginTop="50dp"
+
+               />
             <ImageView
                 android:layout_width="50dp"
                 android:layout_height="50dp"

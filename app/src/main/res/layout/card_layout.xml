@@ -7,7 +7,7 @@
     android:id="@+id/single_card"
     android:layout_margin="16dp"
     app:cardBackgroundColor="@color/white"
-    app:cardCornerRadius="@dimen/cardview_default_radius"
+    app:cardCornerRadius="20dp"
     app:strokeWidth="1dp"
     app:strokeColor="@color/material_on_surface_stroke"
     android:theme="@style/Theme.MaterialComponents.Light">
@@ -18,25 +18,33 @@
         android:orientation="vertical"
         android:layout_margin="10dp">
 
-
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="108dp"
+            app:cardCornerRadius="20dp"
+            android:layout_margin="5dp"
+            android:elevation="10dp">
         <ImageView
             android:id="@+id/product_imageview"
             android:layout_width="match_parent"
             android:layout_height="108dp"
-            android:background="@color/purple_500"
+            android:background="@color/Transparent"
             android:scaleType="centerCrop"
             tools:srcCompat="@tools:sample/backgrounds/scenic"
-
             android:contentDescription="@string/image_of_the_product"
-            android:src="@drawable/ic_baseline_android_24"/>
+            android:src="@drawable/verdura"/>
+
+        </androidx.cardview.widget.CardView>
 
         <TextView
             android:id="@+id/product_name_textview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/product_name"
-            android:layout_margin="3dp"
+
             android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+            android:textAlignment="center"
+            android:layout_marginTop="30dp"
             />
 
         <TextView
@@ -44,7 +52,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/product_price"
-            android:layout_margin="3dp"
+            android:layout_marginTop="20dp"
+            android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.Material3.TitleMedium"/>
 
         <TextView
@@ -52,14 +61,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/product_description"
-            android:layout_margin="3dp"
+            android:layout_marginTop="20dp"
+            android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.Material3.TitleMedium"/>
         <TextView
             android:id="@+id/product_position_textview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textAlignment="center"
             android:text="@string/product_position"
-            android:layout_margin="3dp"
+            android:layout_marginTop="20dp"
             android:textAppearance="@style/TextAppearance.Material3.TitleMedium"/>
     </androidx.appcompat.widget.LinearLayoutCompat>
 </com.google.android.material.card.MaterialCardView>

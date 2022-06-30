@@ -14,16 +14,19 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import androidx.activity.result.ActivityResultCallback;
@@ -31,6 +34,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
@@ -62,7 +66,7 @@ import java.util.Locale;
 public class AddFragment extends Fragment {
     TextInputEditText productTIET;
     TextInputEditText descriptionTIET;
-    TextInputEditText priceTIET;
+    EditText priceTIET;
     TextInputEditText positionTIET;
     private FusedLocationProviderClient fusedLocationProviderClient;
     private LocationCallback locationCallback;
@@ -77,6 +81,7 @@ public class AddFragment extends Fragment {
         return inflater.inflate(R.layout.add_product, container, false);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -139,54 +144,32 @@ public class AddFragment extends Fragment {
         priceTIET = this.getView().findViewById(R.id.price_edittext);
         positionTIET = this.getView().findViewById(R.id.product_position_edittext);
 
-        priceTIET.setRawInputType(Configuration.KEYBOARD_12KEY);
+        priceTIET.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(5,2)});
 
-        priceTIET.addTextChangedListener(new TextWatcher() {
-
-
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-            private String current = "";
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(!s.toString().equals(current)){
-                    priceTIET.removeTextChangedListener(this);
-
-                    String cleanString = s.toString().replaceAll("[€,.]", "");
-                    cleanString = cleanString.replaceAll("\\s+", "");
-                    //cleanString = cleanString.replaceAll(".", "");
-
-                    //Log.d("cleanString",String.valueOf(cleanString.length()));
-                    Log.d("cleanString",cleanString);
-                    double parsed = Double.parseDouble(cleanString);
-
-                    Log.d("parsed",String.valueOf(parsed));
-                    String formatted = NumberFormat.getCurrencyInstance(Locale.ITALY).format((parsed/100));
-                    //formatted = formatted.replaceAll("[.]", ",");
-                    current = formatted;
-                    priceTIET.setText(formatted);
-                    priceTIET.setSelection(formatted.length());
-
-                    priceTIET.addTextChangedListener(this);
-                }
-            }
-
-
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
-        priceTIET.setMovementMethod(null);
 
 
         FloatingActionButton floatingActionButton = getActivity().findViewById(R.id.fab_add);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String price = priceTIET.getText().toString();//.replaceAll(".", ",");
+                /*String[] s = price.split(".");
+                Log.d("prezzo", priceTIET.getText().toString());
+                if(!price.contains(".")){
+                    price=price+".00";
+                }
+                Log.d("dimensione",String.valueOf(s[1].length()));
+                if(s.length == 2 && s[1].length()==1){
+                    price = price+"0";
+                }
+                Log.d("dimensione",String.valueOf(s.length));
+                if(s.length == 1){
+                    price = s[0]+".00";
+                }
+                price=price+" €";
+                Log.d("prezzo", price);*/
+
+
                 Bitmap bitmap = addViewModel.getImageBitmap().getValue();
                 String imageUriString;
                 try {
@@ -197,10 +180,14 @@ public class AddFragment extends Fragment {
                         imageUriString = "ic_baseline_android_24";
                     }
                     if (productTIET.getText() != null && descriptionTIET.getText() != null
-                            && priceTIET.getText() != null && positionTIET.getText() != null) {
+                            && price != null && positionTIET.getText() != null) {
+
+
+
+
 
                         addViewModel.addCardItem(new CardItem(imageUriString, productTIET.getText().toString(),
-                                priceTIET.getText().toString(), descriptionTIET.getText().toString(),
+                                price, descriptionTIET.getText().toString(),
                                 positionTIET.getText().toString(), ((MainActivity)getActivity()).getActualUser().getEmail()));
 
                         addViewModel.setImageBitmap(null);

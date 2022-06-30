@@ -56,7 +56,7 @@ public class RegisterFragment extends Fragment {
 
     @Override
     public void onPrepareOptionsMenu(@NonNull Menu menu) {
-        MenuItem item= menu.findItem(R.id.openmap);
+        MenuItem item= menu.findItem(R.id.openfilter);
         item.setVisible(false);
         super.onPrepareOptionsMenu(menu);
     }

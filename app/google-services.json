@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "248843547568",
+    "project_id": "progettomobilefirebase",
+    "storage_bucket": "progettomobilefirebase.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:248843547568:android:a5e1ab73e4e7b302d99c75",
+        "android_client_info": {
+          "package_name": "com.progettomobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "248843547568-5phjltk9n09i9t7sl4v1ivomodhbusoi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBrUtNjLIxyAmMvO4AuUlbNqOkFMQSkasY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "248843547568-5phjltk9n09i9t7sl4v1ivomodhbusoi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

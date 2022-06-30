@@ -90,15 +90,22 @@ public class DetailsFragment extends Fragment {
                     priceTextView.setText(cardItem.getProductPrice());
                     positionTextView.setText(cardItem.getProductPosition());
                     String image_path = cardItem.getImageResource();
+
+
                     if (image_path.contains("ic_")){
                         Drawable drawable = ResourcesCompat.getDrawable(activity.getResources(),
-                                R.drawable.ic_baseline_android_24, activity.getTheme());
+                                R.drawable.verdura, activity.getTheme());
                         productImageView.setImageDrawable(drawable);
                     } else {
                         Bitmap bitmap = Utilities.getImageBitmap(activity, Uri.parse(image_path));
                         if (bitmap != null){
                             productImageView.setImageBitmap(bitmap);
                             productImageView.setBackgroundColor(Color.WHITE);
+                        }
+                        else{
+                            Drawable drawable = ResourcesCompat.getDrawable(activity.getResources(),
+                                    R.drawable.verdura, activity.getTheme());
+                            productImageView.setImageDrawable(drawable);
                         }
                     }
 

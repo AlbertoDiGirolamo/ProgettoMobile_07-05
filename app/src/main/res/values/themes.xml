@@ -2,8 +2,8 @@
     <!-- Base application theme. -->
     <style name="Theme.ProgettoMobile_0705" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorPrimary">@color/caparol</item>
+        <item name="colorPrimaryVariant">@color/caparol</item>
         <item name="colorOnPrimary">@color/gray</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>

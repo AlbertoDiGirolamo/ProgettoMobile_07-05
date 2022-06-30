@@ -8,66 +8,71 @@
     android:background="@color/cream">
 
     <TextView
+        android:id="@+id/msgtitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="40dp"
         android:gravity="center"
         android:text="Imposta i parametri che preferisci"
+        android:textColor="@color/gray"
         android:textSize="23dp"
-        android:textStyle="bold"
-        android:layout_margin="40dp"
-        android:id="@+id/msgtitle"
-        android:textColor="@color/gray"/>
+        android:textStyle="bold" />
+
     <TextView
+        android:id="@+id/msgprice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Imposta i limiti di prezzo"
         android:layout_below="@id/msgtitle"
-        android:id="@+id/msgprice"
+        android:gravity="center"
+        android:text="Imposta i limiti di prezzo"
         android:textColor="@color/white_gray"
         android:textSize="20dp"
-        android:textStyle="bold"
-        android:layout_marginStart="20dp"
-        />
+        android:textStyle="bold" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/linearprice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/msgprice"
-        android:orientation="horizontal"
         android:gravity="center"
-        android:id="@+id/linearprice">
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp">
 
         <TextView
             android:id="@+id/textpricemin"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="min"
-            android:textSize="20dp"
-            android:gravity="center"
             android:layout_marginStart="15dp"
             android:layout_marginEnd="20dp"
-            android:textColor="@color/gray"/>
+            android:gravity="center"
+            android:text="min"
+            android:textColor="@color/gray"
+            android:textSize="20dp" />
 
 
         <NumberPicker
             android:id="@+id/priceminpicker"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_marginEnd="30dp"
             android:outlineSpotShadowColor="@color/gray"
             android:theme="@style/Theme.ProgettoMobile_0705"
-            android:layout_marginEnd="30dp"
 
             />
+
         <TextView
             android:id="@+id/textpricemax"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="max"
-            android:textSize="20dp"
-            android:gravity="center"
             android:layout_marginStart="15dp"
             android:layout_marginEnd="20dp"
-            android:textColor="@color/gray"/>
+            android:gravity="center"
+            android:text="max"
+            android:textColor="@color/gray"
+            android:textSize="20dp" />
 
 
         <NumberPicker
@@ -75,51 +80,76 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:outlineSpotShadowColor="@color/gray"
-            android:theme="@style/Theme.ProgettoMobile_0705"
-            />
+            android:theme="@style/Theme.ProgettoMobile_0705" />
 
 
     </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/lineardistanza"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearprice"
+        android:layout_marginTop="50dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:text="Range massimo impostato: "
+            android:textColor="@color/gray"
+            android:textSize="18dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/rangefilter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="5 km"
+            android:textColor="@color/gray"
+            android:textSize="18dp"
+            android:textStyle="bold" />
+
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/linearprice"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp">
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout"
-            android:layout_width="match_parent"
+        android:layout_below="@id/lineardistanza"
+        android:layout_marginTop="30dp"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/openmapbtn"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            >
+            android:layout_gravity="center"
+            android:background="@drawable/mybutton"
+            android:text="Apri la mappa"
+            android:padding="10dp"
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableEnd="@drawable/ic_baseline_keyboard_arrow_down_24"
-                android:focusable="false"
-                android:textColorHint="@color/gray"
 
-                android:hint="Seleziona un prodotto"
-                android:inputType="none"
-                android:textColor="@color/gray"
 
-                />
+            />
 
-        </com.google.android.material.textfield.TextInputLayout>
+        <Button
+            android:id="@+id/savefilter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:padding="10dp"
+            android:text="Salva le preferenze"
+            android:background="@drawable/mybutton"
 
-        <Spinner
-            android:id="@+id/category_spinner"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="10dp"
-            android:background="@android:color/transparent"
-            android:spinnerMode="dialog"
- />
+
+
+            />
     </androidx.appcompat.widget.LinearLayoutCompat>
-        <!---->
-
-
 
 
 
