@@ -152,22 +152,18 @@ public class AddFragment extends Fragment {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String price = priceTIET.getText().toString();//.replaceAll(".", ",");
-                /*String[] s = price.split(".");
-                Log.d("prezzo", priceTIET.getText().toString());
-                if(!price.contains(".")){
-                    price=price+".00";
+                String price = priceTIET.getText().toString();
+                //.replaceAll(".", ",");
+                String[] s = price.split("\\.");
+
+
+                if (s.length == 1){
+                    price = s[0]+".00";
                 }
-                Log.d("dimensione",String.valueOf(s[1].length()));
                 if(s.length == 2 && s[1].length()==1){
                     price = price+"0";
                 }
-                Log.d("dimensione",String.valueOf(s.length));
-                if(s.length == 1){
-                    price = s[0]+".00";
-                }
-                price=price+" €";
-                Log.d("prezzo", price);*/
+                Log.d("prezzo", (price));
 
 
                 Bitmap bitmap = addViewModel.getImageBitmap().getValue();

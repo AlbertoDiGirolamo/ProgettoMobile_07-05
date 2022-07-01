@@ -2,5 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     >
     <item android:title="Filtra i risultati"
-        android:id="@+id/openfilter"/>
+        android:id="@+id/openfilter"
+        />
 </menu>

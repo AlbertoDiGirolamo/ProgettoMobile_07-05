@@ -2,6 +2,7 @@ package com.example.progettomobile_07_05;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -74,9 +76,23 @@ public class FilterFragment extends Fragment {
         getActivity().findViewById(R.id.savefilter).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getFragmentManager().popBackStack();
+
+                if (numberPickerMax.getValue() < numberPickerMin.getValue()){
+                    if (numberPickerMax.getValue() != 0){
+                        Toast.makeText(getActivity(), "Input prezzo non corretto", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                }
+                ((MainActivity)getActivity()).setMinPrice( numberPickerMin.getValue()-1);
+                ((MainActivity)getActivity()).setMaxPrice( numberPickerMax.getValue()-1);
+                Log.d("prova", String.valueOf(numberPickerMax.getValue()-1));
+                Utilities.insertFragment((AppCompatActivity) getActivity(), new HomeFragment(), HomeFragment.class.getSimpleName());
             }
         });
+
+        numberPickerMax.setValue(((MainActivity)getActivity()).getMaxPrice()+1);
+        numberPickerMin.setValue(((MainActivity)getActivity()).getMinPrice()+1);
 
     }
 }

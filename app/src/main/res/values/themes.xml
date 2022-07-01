@@ -16,6 +16,7 @@
     </style>
     <style name="Theme.Material3.DayNight.NoActionBar">
         <item name="windowActionBar">false</item>
+        <item name="android:fontFamily"></item>
         <item name="windowNoTitle">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>

@@ -139,39 +139,6 @@
 
 
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/others"
-            android:layout_below="@id/registerbutton"
-            android:text="oppure effettua la registrazione con"
-            android:textColor="@color/white_gray"
-            android:layout_centerHorizontal="true"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/registerbutton"
-            android:layout_alignParentBottom="true"
-            android:gravity="center"
-            android:id="@+id/socialicons"
-            android:layout_marginTop="20dp">
-
-
-            <ImageView
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_margin="20dp"
-                android:src="@drawable/fb"/>
-            <ImageView
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_margin="20dp"
-                android:src="@drawable/googleg_standard_color_18"/>
-
-
-        </LinearLayout>
-
 
     </RelativeLayout>
 </ScrollView>

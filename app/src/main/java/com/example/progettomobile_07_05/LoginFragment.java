@@ -61,7 +61,6 @@ public class LoginFragment extends Fragment {
 
         NavigationView navigationView = getActivity().findViewById(R.id.nav_view);
         navigationView.getMenu().findItem(R.id.nav_home).setVisible(false);
-        navigationView.getMenu().findItem(R.id.nav_message).setVisible(false);
         navigationView.getMenu().findItem(R.id.nav_myproduct).setVisible(false);
 
         EditText mail = (EditText) view.findViewById(R.id.maillogin);

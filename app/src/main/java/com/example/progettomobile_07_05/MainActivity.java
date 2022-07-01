@@ -73,20 +73,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private AddViewModel addViewModel;
     private int actualPage;
     private int setActualMenuDrawer;
-
-
     private User actualUser = null;
     private Circle circle = null;
 
     private LocationManager locationManager;
     private LocationListener listener;
-
     private Location actualPosition;
+
+    private int minPrice = -1;
+    private int maxPrice = -1;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
         setContentView(R.layout.activity_main);
 
@@ -108,7 +110,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         drawer = findViewById(R.id.drawer_layout);
 
-
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -117,16 +118,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        /*if (savedInstanceState == null){
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,  new HomeFragment()).commit();
-            //navigationView.setCheckedItem(R.id.nav_message);
-        }*/
-
         addViewModel = new ViewModelProvider(this).get(AddViewModel.class);
-
         actualPage = R.id.nav_home;
-        //getCardItemList
-
         setActualMenuDrawer();
 
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
@@ -210,16 +203,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     setActualMenuDrawer = 0;
                 }
                 break;
-            case R.id.nav_message:
-                if (actualPage != R.id.nav_message) {
-                    /*Intent intent = new Intent();
-                    intent.setClass(getApplicationContext(), MapsActivity.class);
-                    startActivity(intent);*/
-                    Utilities.insertFragment(this, new FilterFragment(), FilterFragment.class.getSimpleName());
-                    actualPage = R.id.nav_message;
-                    setActualMenuDrawer = 1;
-                }
-                break;
             case R.id.nav_profile:
 
                 if (actualPage != R.id.nav_profile && actualUser != null) {
@@ -237,11 +220,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
                 break;
 
-            case R.id.nav_share:
-
-                Toast.makeText(this, "Share", Toast.LENGTH_SHORT).show();
-
-                break;
         }
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -339,5 +317,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+    public int getMinPrice() {
+        return minPrice;
+    }
+
+    public void setMinPrice(int minPrice) {
+        this.minPrice = minPrice;
+    }
+
+    public int getMaxPrice() {
+        return maxPrice;
+    }
+
+    public void setMaxPrice(int maxPrice) {
+        this.maxPrice = maxPrice;
     }
 }

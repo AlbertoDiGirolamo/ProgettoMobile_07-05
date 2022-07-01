@@ -87,7 +87,7 @@ public class DetailsFragment extends Fragment {
                 public void onChanged(CardItem cardItem) {
                     nameTextView.setText(cardItem.getProductName());
                     descriptionTextView.setText(cardItem.getProductDescription());
-                    priceTextView.setText(cardItem.getProductPrice());
+                    priceTextView.setText(cardItem.getProductPrice()+" €");
                     positionTextView.setText(cardItem.getProductPosition());
                     String image_path = cardItem.getImageResource();
 
@@ -150,10 +150,10 @@ public class DetailsFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     Intent shareIntent = new Intent(Intent.ACTION_SEND);
-                    shareIntent.putExtra(Intent.EXTRA_TEXT, getText(R.string.product_name) + ": " +
-                          "\n" + getText(R.string.price) + ": " +
-                            priceTextView.getText().toString() +"\n" + getText(R.string.description) + ": " +
-                            descriptionTextView.getText().toString() + getText(R.string.position) + ": " +
+                    shareIntent.putExtra(Intent.EXTRA_TEXT, "Ciao! Dai un'occhiata a questo prodotto: " +nameTextView.getText().toString() +
+                          ".\n" + "Costa: " +
+                            priceTextView.getText().toString()+ "/Kg" +"\n" + "Descrizione: " +
+                            descriptionTextView.getText().toString() + ".\nSi trova: "+
                             positionTextView.getText().toString());
                     shareIntent.setType("text/plain");
                     Context context = view.getContext();

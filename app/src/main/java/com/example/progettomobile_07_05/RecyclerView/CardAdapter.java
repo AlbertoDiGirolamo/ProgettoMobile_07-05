@@ -59,7 +59,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardViewHolder>{
         }
 
         holder.productNameTextView.setText(currentCardItem.getProductName());
-        holder.productPriceTextView.setText(currentCardItem.getProductPrice());
+        holder.productPriceTextView.setText(currentCardItem.getProductPrice()+" €");
         holder.productDescriptionTextView.setText(currentCardItem.getProductDescription());
         holder.productPositionTextView.setText(currentCardItem.getProductPosition());
     }
@@ -73,7 +73,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardViewHolder>{
 
     }
 
-    public void filter(String text){
+    public void filterSearch(String text){
 
         ArrayList<CardItem> cardItemsFiltered = new ArrayList<>();
         for (CardItem item : cardItemListNotFiltered){
@@ -85,6 +85,8 @@ public class CardAdapter extends RecyclerView.Adapter<CardViewHolder>{
 
 
     }
+
+
     public void notFilter(){
         filterList(cardItemListNotFiltered);
     }
@@ -107,59 +109,4 @@ public class CardAdapter extends RecyclerView.Adapter<CardViewHolder>{
         return  cardItemList.get(position);
     }
 
-/*
-    @Override
-    public Filter getFilter() {
-        return cardFilter;
-    }
-
-    private final Filter cardFilter = new Filter() {
-
-        @Override
-        protected FilterResults performFiltering(CharSequence constraint) {
-            List<CardItem> filteredList = new ArrayList<>();
-
-            //if you have no constraint --> return the full list
-            if (constraint == null || constraint.length() == 0) {
-                filteredList.addAll(cardItemListNotFiltered);
-            } else {
-                //else apply the filter and return a filtered list
-                String filterPattern = constraint.toString().toLowerCase().trim();
-                for (CardItem item : cardItemListNotFiltered) {
-                    if (item.getProductDescription().toLowerCase().contains(filterPattern) ||
-                            item.getProductName().toLowerCase().contains(filterPattern)) {
-                        filteredList.add(item);
-                    }
-                }
-            }
-
-            FilterResults results = new FilterResults();
-            results.values = filteredList;
-            return results;
-        }
-
-
-        @Override
-        protected void publishResults(CharSequence constraint, FilterResults results) {
-            List<CardItem> filteredList = new ArrayList<>();
-            List<?> result = (List<?>) results.values;
-            for (Object object : result) {
-                if (object instanceof CardItem) {
-                    filteredList.add((CardItem) object);
-                }
-            }
-
-            //warn the adapter that the data are changed after the filtering
-            updateCardListItems(filteredList);
-        }
-    };
-
-    public void updateCardListItems(List<CardItem> filteredList) {
-        final CardItemDiffCallback diffCallback =
-                new CardItemDiffCallback(this.cardItemList, filteredList);
-        final DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffCallback);
-
-        this.cardItemList = new ArrayList<>(filteredList);
-        diffResult.dispatchUpdatesTo(this);
-    }*/
 }

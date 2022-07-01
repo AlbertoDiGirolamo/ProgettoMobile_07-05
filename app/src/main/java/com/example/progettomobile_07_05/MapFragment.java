@@ -60,25 +60,6 @@ public class MapFragment extends Fragment {
                     seekBar.setProgress((int) ((MainActivity)getActivity()).getCircle().getRadius()/ 1000);
                 }
 
-                /*msg.setText(seekBar.getProgress()+" km");
-                circle = mMap.addCircle(new CircleOptions()
-                        .center(actualPosition)
-                        .radius(seekBar.getProgress()*1000)
-                        .strokeWidth(0)
-                        .strokeColor(Color.parseColor("#E671cce7"))
-                        .fillColor(Color.parseColor("#8071cce7")));
-                ((MainActivity)getActivity()).setCircle(circle);*/
-
-                /*googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-
-                    @Override
-                    public void onMapClick(@NonNull LatLng latLng) {
-                        MarkerOptions markerOptions= new MarkerOptions();
-                        markerOptions.position(latLng);
-                        markerOptions.title(latLng.latitude)
-                    }
-                });*/
-
             }
         });
 

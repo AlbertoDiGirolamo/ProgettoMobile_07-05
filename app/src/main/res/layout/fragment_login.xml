@@ -64,26 +64,15 @@
         android:background="@drawable/mybutton"
         android:text="LOGIN" />
 
+
     <TextView
-        android:id="@+id/forgotpass"
+        android:id="@+id/linkregister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/loginbutton"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"
-        android:text="Password dimenticata?"
-        android:textColor="@color/white_gray" />
-    <TextView
-        android:id="@+id/linkregister"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/forgotpass"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
         android:text="oppure clicca per registrarti"
@@ -91,35 +80,7 @@
         android:textStyle="bold"/>
 
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/others"
-        android:text="Effettua il login con"
-        android:textColor="@color/white_gray"
-        android:layout_above="@id/socialicons"
-        android:layout_centerHorizontal="true"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:gravity="center"
-        android:id="@+id/socialicons">
-
-        <ImageView
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_margin="20dp"
-            android:src="@drawable/fb" />
-        <ImageView
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_margin="20dp"
-            android:src="@drawable/googleg_standard_color_18"/>
-
-
-    </LinearLayout>
 
 
 </RelativeLayout>

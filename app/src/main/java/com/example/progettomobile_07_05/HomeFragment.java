@@ -2,33 +2,21 @@ package com.example.progettomobile_07_05;
 
 import static android.webkit.ConsoleMessage.MessageLevel.LOG;
 
-import android.Manifest;
 import android.app.Activity;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
-import android.os.Looper;
-import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.Toast;
 
-import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
-import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -41,11 +29,7 @@ import com.example.progettomobile_07_05.ViewModel.ListViewModel;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationResult;
-import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.model.Circle;
-import com.google.android.gms.maps.model.CircleOptions;
-import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
@@ -81,7 +65,6 @@ public class HomeFragment extends Fragment  implements OnItemListener {
 
         NavigationView navigationView = getActivity().findViewById(R.id.nav_view);
         navigationView.getMenu().findItem(R.id.nav_home).setVisible(true);
-        navigationView.getMenu().findItem(R.id.nav_message).setVisible(true);
         navigationView.getMenu().findItem(R.id.nav_myproduct).setVisible(true);
 
 
@@ -98,11 +81,11 @@ public class HomeFragment extends Fragment  implements OnItemListener {
             listViewModel = new ViewModelProvider(activity).get(ListViewModel.class);
             listViewModel.getCardItems().observe(activity, new Observer<List<CardItem>>() {
                 @Override
-                public void onChanged(List<CardItem> cardItem) {
+                public void onChanged(List<CardItem> cardItems) {
                     circle = ((MainActivity)getActivity()).getCircle();
                     location = ((MainActivity)getActivity()).getActualPosition();
                     List<CardItem> cardItemFiltered = new ArrayList<>();
-                    for (CardItem c : cardItem){
+                    for (CardItem c : cardItems){
                         Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
                         List<Address> addresses = new ArrayList<>();
                         try {
@@ -117,12 +100,14 @@ public class HomeFragment extends Fragment  implements OnItemListener {
                             locationProduct.setLatitude(latitude);
                             locationProduct.setLongitude(longitude);
                             if(isProductInCircle(locationProduct)){
+
                                 cardItemFiltered.add(c);
                             }
                         }
 
                     }
-                    adapter.setData(cardItemFiltered);
+
+                    adapter.setData(filterPrice(cardItemFiltered,((MainActivity)getActivity()).getMinPrice(),((MainActivity)getActivity()).getMaxPrice()));
                     recyclerView.setAdapter(adapter);
 
                 }
@@ -142,7 +127,7 @@ public class HomeFragment extends Fragment  implements OnItemListener {
             searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                 @Override
                 public boolean onQueryTextSubmit(String query) {
-                    adapter.filter(query);
+                    adapter.filterSearch(query);
                     return false;
                 }
 
@@ -169,17 +154,6 @@ public class HomeFragment extends Fragment  implements OnItemListener {
             Log.e(String.valueOf(LOG), "Activity is null");
         }
 
-        //43.129479, 12.970972
-        /*Location roma = new Location("");
-        roma.setLatitude(41.859816);
-        roma.setLongitude(12.548127);
-        Location cesena = new Location("");
-        cesena.setLatitude(44.138317);
-        cesena.setLongitude(12.241815);
-        circle = ((MainActivity)getActivity()).getCircle();
-        location = ((MainActivity)getActivity()).getActualPosition();
-        //a@gisProductInCircle(roma);
-        isProductInCircle(roma);*/
 
     }
 
@@ -226,6 +200,30 @@ public class HomeFragment extends Fragment  implements OnItemListener {
             Utilities.insertFragment((AppCompatActivity) activity, new DetailsFragment(), DetailsFragment.class.getSimpleName());
             listViewModel.setItemSelected(adapter.getItemSelected(position));
         }
+    }
+
+    private List<CardItem> filterPrice(List<CardItem> cardItemToFilter, int min, int max){
+        ArrayList<CardItem> cardItemsFiltered = new ArrayList<>();
+        for (CardItem item : cardItemToFilter){
+            Float price = Float.valueOf(item.getProductPrice());
+            if (min != -1 && max != -1){
+                if(price > min && price < max){
+                    cardItemsFiltered.add(item);
+                }
+            }else if(min == -1 && max != -1){
+                if(price < max){
+                    cardItemsFiltered.add(item);
+                }
+            }else if(min != -1 && max == -1){
+                if(price > min){
+                    cardItemsFiltered.add(item);
+                }
+            }else if(min == -1 && max == -1){
+                cardItemsFiltered.add(item);
+            }
+
+        }
+        return cardItemsFiltered;
     }
 
 }
