@@ -42,10 +42,6 @@ public class HomeFragment extends Fragment  implements OnItemListener {
     private RecyclerView recyclerView;
     private CardAdapter adapter;
     private ListViewModel listViewModel;
-    private FusedLocationProviderClient fusedLocationProviderClient;
-    private LocationCallback locationCallback;
-    private LocationRequest locationRequest;
-    private ActivityResultLauncher<String> requestPermissionLauncher;
     private Location location;
 
     private Circle circle;

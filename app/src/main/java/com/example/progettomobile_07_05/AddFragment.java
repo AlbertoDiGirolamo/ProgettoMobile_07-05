@@ -73,7 +73,11 @@ public class AddFragment extends Fragment {
     private LocationRequest locationRequest;
     private ActivityResultLauncher<String> requestPermissionLauncher;
     private boolean requestingLocationUpdates = false;
-
+    private int SELECT_PICTURE = 200;
+    public static final int RESULT_OK = -1;
+    private ImageView imageView;
+    private AddViewModel addViewModel;
+//   content://media/external/images/media/79
 
     @Nullable
     @Override
@@ -106,17 +110,6 @@ public class AddFragment extends Fragment {
         SearchView sv = activity.findViewById(R.id.search_icon);
         sv.setVisibility(View.INVISIBLE);
 
-        AddFragment addFragment = this;
-        View viewAdd = getActivity().findViewById(R.id.fab_add);
-        /*FloatingActionButton floatingActionButton = view.findViewById(R.id.fab_add);
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Utilities.insertFragment((AppCompatActivity) activity, new AddFragment(),
-                        AddFragment.class.getSimpleName());
-            }
-
-        });*/
 
         view.findViewById(R.id.capture_button).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,17 +118,28 @@ public class AddFragment extends Fragment {
                 if (takePictureIntent.resolveActivity(activity.getPackageManager()) != null) {
                     activity.startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
                 }
+                
+
             }
         });
 
-        ImageView imageView = view.findViewById(R.id.picture_displayed_imageview);
-        AddViewModel addViewModel = new ViewModelProvider((ViewModelStoreOwner) activity)
+
+
+        imageView = view.findViewById(R.id.picture_displayed_imageview);
+        addViewModel = new ViewModelProvider((ViewModelStoreOwner) activity)
                 .get(AddViewModel.class);
 
         addViewModel.getImageBitmap().observe(getViewLifecycleOwner(), new Observer<Bitmap>() {
             @Override
             public void onChanged(Bitmap bitmap) {
                 imageView.setImageBitmap(bitmap);
+            }
+        });
+        view.findViewById(R.id.load_picture_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                imageChooser();
+
             }
         });
 
@@ -173,7 +177,7 @@ public class AddFragment extends Fragment {
                         imageUriString = String.valueOf(saveImage(bitmap, activity));
 
                     } else {
-                        imageUriString = "ic_baseline_android_24";
+                        imageUriString = "verdura.png";
                     }
                     if (productTIET.getText() != null && descriptionTIET.getText() != null
                             && price != null && positionTIET.getText() != null) {
@@ -325,6 +329,44 @@ public class AddFragment extends Fragment {
 
     }
 
+    void imageChooser() {
+
+        // create an instance of the
+        // intent of the type image
+        Intent i = new Intent();
+        i.setType("image/*");
+        i.setAction(Intent.ACTION_GET_CONTENT);
+
+        // pass the constant to compare it
+        // with the returned requestCode
+        startActivityForResult(Intent.createChooser(i, "Select Picture"), SELECT_PICTURE);
+    }
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK) {
+
+            // compare the resultCode with the
+            // SELECT_PICTURE constant
+            if (requestCode == SELECT_PICTURE) {
+                // Get the url of the image from data
+                Uri selectedImageUri = data.getData();
+                Log.d("uri",selectedImageUri.toString());
+                if (null != selectedImageUri) {
+                    // update the preview image in the layout
+                    imageView.setImageURI(selectedImageUri);
+                    Bitmap bitmap = null;
+                    try {
+                        bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedImageUri);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    addViewModel.setImageBitmap(bitmap);
+
+                }
+            }
+        }
+    }
 
 
     @Override

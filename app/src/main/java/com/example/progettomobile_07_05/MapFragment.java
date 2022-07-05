@@ -1,7 +1,10 @@
 package com.example.progettomobile_07_05;
 
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.icu.text.Transliterator;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,17 +18,27 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 
+import com.example.progettomobile_07_05.Database.CardItem;
+import com.example.progettomobile_07_05.ViewModel.ListViewModel;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MapFragment extends Fragment {
     private GoogleMap mMap;
@@ -33,12 +46,13 @@ public class MapFragment extends Fragment {
     private Circle circle = null;
     private SeekBar seekBar;
     private TextView msg;
+    private ListViewModel listViewModel;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_map, container, false);
-
+        MainActivity activity =(MainActivity) getActivity();
 
 
 
@@ -48,7 +62,8 @@ public class MapFragment extends Fragment {
             @Override
             public void onMapReady(@NonNull GoogleMap googleMap) {
                 mMap = googleMap;
-                mMap.addMarker(new MarkerOptions().position(actualPosition).title("Cesena"));
+
+                mMap.addMarker(new MarkerOptions().position(actualPosition).title("Io mi trovo qui"));
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(actualPosition,10));
 
                 Location pos =  ((MainActivity)getActivity()).getActualPosition();
@@ -59,6 +74,35 @@ public class MapFragment extends Fragment {
                 }else{
                     seekBar.setProgress((int) ((MainActivity)getActivity()).getCircle().getRadius()/ 1000);
                 }
+
+
+                listViewModel = new ViewModelProvider(activity).get(ListViewModel.class);
+                listViewModel.getCardItems().observe(activity, new Observer<List<CardItem>>() {
+                    @Override
+                    public void onChanged(List<CardItem> cardItem) {
+                        for (CardItem c : cardItem){
+
+                            Geocoder coder = new Geocoder(getContext());
+                            List<Address> address = null;
+
+                            try {
+                                address = coder.getFromLocationName(c.getProductPosition(), 5);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            if (address == null) {
+                                return;
+                            }
+                            Address location = address.get(0);
+                            location.getLatitude();
+                            location.getLongitude();
+                            LatLng latLng = new LatLng(location.getLatitude(),location.getLongitude());
+
+                            mMap.addMarker(new MarkerOptions().position(latLng).title(c.getProductName()));
+                        }
+
+                    }
+                });
 
             }
         });

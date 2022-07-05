@@ -65,6 +65,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Locale;
 
@@ -91,6 +93,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
         setContentView(R.layout.activity_main);
+
+
+        // c1a4158909d6c23f73df353c7cc0bbe963891a65  alberto
+        // 4f40cda291c5f9634e1affd3db44947af61f705c  filippo
 
         if (savedInstanceState == null) {
             if (actualUser == null) {
@@ -151,6 +157,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
         configureGPS();
+
 
 
     }

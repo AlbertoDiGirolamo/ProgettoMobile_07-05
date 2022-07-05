@@ -14,6 +14,9 @@ import com.example.progettomobile_07_05.Database.UserRepository;
 
 public class AddViewModel extends AndroidViewModel {
     private final MutableLiveData<Bitmap> imageBitmap = new MutableLiveData<>();
+
+
+
     public MutableLiveData<Bitmap> getImageBitmap(){
         return  imageBitmap;
     }

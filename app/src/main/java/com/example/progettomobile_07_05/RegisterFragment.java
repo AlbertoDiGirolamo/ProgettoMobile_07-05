@@ -20,6 +20,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
@@ -34,7 +35,9 @@ import com.example.progettomobile_07_05.ViewModel.ListViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Array;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -118,7 +121,19 @@ public class RegisterFragment extends Fragment {
                                 Toast.makeText(getActivity(), "Email gia esistente", Toast.LENGTH_SHORT).show();
 
                             } else {
-                                User newUser = new User(mail.getText().toString(), password.getText().toString(), name.getText().toString(), surname.getText().toString(), telephoneNumber.getText().toString());
+                                Sha1Hex sha1Hex = new Sha1Hex();
+                                String passwordHash = "";
+                                try {
+                                    passwordHash = sha1Hex.makeSHA1Hash(password.getText().toString());
+                                    Log.d("hash", passwordHash);
+                                } catch (NoSuchAlgorithmException e) {
+                                    e.printStackTrace();
+                                } catch (UnsupportedEncodingException e) {
+                                    e.printStackTrace();
+                                }
+
+
+                                User newUser = new User(mail.getText().toString(), passwordHash, name.getText().toString(), surname.getText().toString(), telephoneNumber.getText().toString());
                                 repository.addUser(newUser);
                                 Toast.makeText(getActivity(), "Registrazione effettuata", Toast.LENGTH_SHORT).show();
                                 InputMethodManager manager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -128,6 +143,8 @@ public class RegisterFragment extends Fragment {
                                 List<User> listUser = new ArrayList<>();
                                 listUser.add(newUser);
                                 ((MainActivity)getActivity()).setUser(getUser(listUser, mail.getText().toString()));
+
+                                getFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 
                                 Utilities.insertFragment((AppCompatActivity) getActivity(), new HomeFragment(), HomeFragment.class.getSimpleName());
                             }

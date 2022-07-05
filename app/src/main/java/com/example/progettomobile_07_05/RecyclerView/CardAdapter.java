@@ -1,9 +1,18 @@
 package com.example.progettomobile_07_05.RecyclerView;
 
+import static androidx.core.app.ActivityCompat.startActivityForResult;
+
 import android.app.Activity;
+import android.content.ContentResolver;
+import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,9 +23,18 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.progettomobile_07_05.Database.CardItem;
+import com.example.progettomobile_07_05.MainActivity;
 import com.example.progettomobile_07_05.R;
 import com.example.progettomobile_07_05.Utilities;
+import com.google.android.gms.auth.api.signin.internal.Storage;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +44,10 @@ public class CardAdapter extends RecyclerView.Adapter<CardViewHolder>{
     private Activity activity;
     private OnItemListener listener;
     private ArrayList<CardItem> cardItemListNotFiltered;
+    private FirebaseStorage storage;
+    private StorageReference storageReference;
+    //private DatabaseReference dbRef;
+
 
 
     public CardAdapter(OnItemListener listener, Activity activity){
@@ -33,6 +55,9 @@ public class CardAdapter extends RecyclerView.Adapter<CardViewHolder>{
         this.activity = activity;
         //this.cardItemList = new ArrayList<>(cardItemList);
         //this.cardItemListNotFiltered = new ArrayList<>(cardItemList);
+
+        //dbRef = FirebaseStorage.getInstance().getReferenceFromUrl("gs://progettomobilefirebase.appspot.com");
+
 
     }
 
@@ -42,21 +67,43 @@ public class CardAdapter extends RecyclerView.Adapter<CardViewHolder>{
         View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_layout, parent, false);
         return  new CardViewHolder(layoutView, listener);
     }
+    public String getRealPathFromURI(Context context, Uri contentUri) {
+        Cursor cursor = null;
+        try {
+            String[] proj = { MediaStore.Images.Media.DATA };
+            cursor = context.getContentResolver().query(contentUri,  proj, null, null, null);
+            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            cursor.moveToFirst();
+            return cursor.getString(column_index);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+    }
+
+
+
 
     @Override
     public void onBindViewHolder(@NonNull CardViewHolder holder, int position) {
         CardItem currentCardItem = cardItemList.get(position);
+
         String imagePath = currentCardItem.getImageResource();
-        if (imagePath.contains("ic_")){
-            Drawable drawable = AppCompatResources.getDrawable(activity, activity.getResources()
-                    .getIdentifier(imagePath, "drawable", activity.getPackageName()));
-            holder.productImageView.setImageDrawable(drawable);
-        } else {
+
             Bitmap bitmap = Utilities.getImageBitmap(activity, Uri.parse(imagePath));
+            //Log.d("urii", getRealPathFromURI(activity.getBaseContext(), Uri.parse("content://media/external/images/media/76")));
+
+
             if (bitmap != null){
+                //Log.d("uri", Uri.parse(imagePath).toString());
+                //Log.d("uri", getRealPathFromURI(activity.getBaseContext(), Uri.parse(imagePath)));
+
                 holder.productImageView.setImageBitmap(bitmap);
             }
-        }
+
+
+//    content://com.android.providers.media.documents/document/image%3A77
 
         holder.productNameTextView.setText(currentCardItem.getProductName());
         holder.productPriceTextView.setText(currentCardItem.getProductPrice()+" €");
@@ -108,5 +155,6 @@ public class CardAdapter extends RecyclerView.Adapter<CardViewHolder>{
     public CardItem getItemSelected(int position) {
         return  cardItemList.get(position);
     }
+
 
 }

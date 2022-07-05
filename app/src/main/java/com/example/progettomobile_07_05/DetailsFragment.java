@@ -111,8 +111,12 @@ public class DetailsFragment extends Fragment {
 
                     FragmentManager fm = getFragmentManager();
                     int count = getFragmentManager().getBackStackEntryCount();
-                    String name = fm.getBackStackEntryAt(count - 2).getName();
-                    if(!name.equals("MyProductFragment")){
+                    try {
+                        String name = fm.getBackStackEntryAt(count - 2).getName();
+                        if (!name.equals("MyProductFragment")) {
+
+                        }
+                    }catch (Exception e){
                         getActivity().findViewById(R.id.deleteitem).setVisibility(View.INVISIBLE);
                     }
                     getActivity().findViewById(R.id.deleteitem).setOnClickListener(l->{
