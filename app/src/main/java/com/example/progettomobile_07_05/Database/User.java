@@ -23,21 +23,6 @@ public class User {
 
     @ColumnInfo(name = "telephone_number")
     private String telephoneNumber;
-    /*
-    CREATE DATABASE product_database;
-
-    CREATE TABLE user (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            email VARCHAR(30),
-    password VARCHAR(30),
-    name VARCHAR(30),
-    surname VARCHAR(30),
-    telephone_number VARCHAR(30)
-
-  );*/
-
-
-
 
     public User(String email,String password, String nameUser, String surnameUser, String telephoneNumber){
         this.email = email;

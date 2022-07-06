@@ -21,8 +21,9 @@
             android:textColor="@color/gray"
             android:textSize="35dp"
             android:textStyle="bold"
-            android:layout_margin="50dp"
-            android:gravity="center"/>
+            android:layout_margin="40dp"
+            android:gravity="center"
+            />
 
         <EditText
             android:id="@+id/emailregister"
@@ -33,7 +34,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
-            android:background="#30ffffff"
+            android:background="@drawable/shape"
             android:drawableLeft="@drawable/ic_baseline_mail_outline_24"
             android:drawablePadding="20dp"
             android:hint="Email"
@@ -50,7 +51,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
-            android:background="#30ffffff"
+            android:background="@drawable/shape"
             android:drawableLeft="@drawable/ic_baseline_vpn_key_24"
             android:drawablePadding="20dp"
             android:hint="Password"
@@ -58,6 +59,7 @@
             android:padding="20dp"
             android:textColor="@color/white_gray"
             android:textColorHint="@color/white_gray" />
+
         <EditText
             android:id="@+id/repasswordregister"
             android:layout_width="match_parent"
@@ -67,7 +69,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
-            android:background="#30ffffff"
+            android:background="@drawable/shape"
             android:drawableLeft="@drawable/ic_baseline_vpn_key_24"
             android:drawablePadding="20dp"
             android:hint="Riscrivi la password"
@@ -85,7 +87,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
-            android:background="#30ffffff"
+            android:background="@drawable/shape"
             android:drawableLeft="@drawable/ic_baseline_person_outline_24"
             android:drawablePadding="20dp"
             android:hint="Nome"
@@ -98,7 +100,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/nameregister"
             android:layout_margin="10dp"
-            android:background="#30ffffff"
+            android:background="@drawable/shape"
             android:hint="Cognome"
             android:padding="20dp"
             android:textColor="@color/white_gray"
@@ -116,12 +118,12 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
+            android:background="@drawable/shape"
             android:digits="0123456789"
-            android:inputType="number"
-            android:background="#30ffffff"
             android:drawableLeft="@drawable/ic_baseline_phone_24"
             android:drawablePadding="20dp"
             android:hint="Telefono"
+            android:inputType="number"
             android:padding="20dp"
             android:textColor="@color/white_gray"
             android:textColorHint="@color/white_gray" />

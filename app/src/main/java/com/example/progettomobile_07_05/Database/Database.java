@@ -18,6 +18,7 @@ public abstract class Database extends RoomDatabase {
     public abstract UserDAO userDAO();
 
 
+
     private static volatile Database ISTANCE;
     static final ExecutorService executor = Executors.newFixedThreadPool(4);
 

@@ -15,16 +15,26 @@
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="108dp"
+                android:layout_margin="20dp"
+                android:background="@color/white_cream"
+                android:backgroundTint="@color/white_cream"
+                android:elevation="10dp"
+                app:cardCornerRadius="20dp">
+
             <ImageView
                 android:id="@+id/product_image"
                 android:layout_width="match_parent"
                 android:layout_height="108dp"
-                android:background="@color/Transparent"
-                app:srcCompat="@drawable/verdura"
-                android:layout_margin="10dp"
-                android:contentDescription="@string/image_of_the_product"
 
-                />
+                android:background="@color/Transparent"
+                android:backgroundTint="@color/Transparent"
+                android:contentDescription="@string/image_of_the_product"
+                android:scaleType="centerCrop"
+                app:srcCompat="@drawable/verdura" />
+            </androidx.cardview.widget.CardView>
 
             <TextView
                 android:id="@+id/product_name"
@@ -32,76 +42,103 @@
                 android:layout_height="wrap_content"
                 android:text="@string/product_name"
                 android:layout_margin="10dp"
-                android:textColor="@color/black"
+                android:textColor="@color/gray"
+                android:textStyle="bold"
+                android:textSize="25dp"
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.Material3.TitleLarge"/>
-            <TextView
-                android:text="Prezzo:"
-                android:textColor="@color/gray"
-                android:layout_width="match_parent"
+            <RelativeLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp">
+                android:background="@drawable/shape"
+                android:layout_margin="20dp">
 
-            </TextView>
+                <TextView
+                    android:id="@+id/txtprezzo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="10dp"
+                    android:text="Prezzo:"
+                    android:textColor="@color/gray">
 
 
-            <TextView
-                android:id="@+id/product_price"
-                android:layout_width="match_parent"
+                </TextView>
+
+                <TextView
+                    android:id="@+id/product_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/txtprezzo"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:text="@string/price"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
+                    android:textColor="@color/gray"
+                    android:textSize="20dp" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/price"
-                android:textColor="@color/black"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:textSize="20dp"
-                android:textAlignment="center"
-                android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
-                />
-            <TextView
-                android:text="Descrizione:"
-                android:textColor="@color/gray"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                />
-            <TextView
-                android:id="@+id/product_description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/description"
-                android:textColor="@color/black"
-                android:textSize="20dp"
-                android:textAlignment="center"
+                android:background="@drawable/shape"
+                android:layout_margin="20dp">
+                <TextView
+                    android:text="Descrizione:"
+                    android:textColor="@color/gray"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:id="@+id/txtdescrizione"
+                    />
 
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:textAppearance="@style/TextAppearance.Material3.LabelMedium"/>
+                <TextView
+                    android:id="@+id/product_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/txtdescrizione"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:text="@string/description"
+                    android:textAlignment="center"
+
+                    android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
+                    android:textColor="@color/gray"
+                    android:textSize="20dp" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape"
+                android:layout_margin="20dp">
             <TextView
                 android:text="Posizione:"
                 android:textColor="@color/gray"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
+                android:id="@+id/txtposizione"
+
                 />
 
-            <TextView
-                android:id="@+id/product_position"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/position"
-                android:textColor="@color/black"
-
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
-                android:textAlignment="center"
-                android:textSize="20dp"/>
+                <TextView
+                    android:id="@+id/product_position"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/txtposizione"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:text="@string/position"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
+                    android:textColor="@color/gray"
+                    android:textSize="20dp" />
+            </RelativeLayout>
 
             <Button
                 android:id="@+id/share_button"
@@ -110,6 +147,7 @@
                 android:text="@string/share"
                 android:layout_gravity="center"
                 android:layout_marginTop="50dp"
+                android:background="@drawable/mybutton"
 
                />
             <ImageView
@@ -117,7 +155,6 @@
                 android:layout_height="50dp"
                 android:src="@drawable/ic_baseline_delete_outline_24"
                 android:layout_gravity="center"
-
                 android:id="@+id/deleteitem"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"/>
