@@ -17,12 +17,20 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+
+import android.database.ContentObserver;
+
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.progettomobile_07_05.Database.CardItem;
+import com.example.progettomobile_07_05.Database.CardItemRepository;
 import com.example.progettomobile_07_05.RecyclerView.CardAdapter;
 import com.example.progettomobile_07_05.RecyclerView.OnItemListener;
 import com.example.progettomobile_07_05.ViewModel.ListViewModel;
@@ -43,6 +51,7 @@ public class HomeFragment extends Fragment  implements OnItemListener {
     private CardAdapter adapter;
     private ListViewModel listViewModel;
     private Location location;
+    private boolean isView = false;
 
     private Circle circle;
 
@@ -57,6 +66,8 @@ public class HomeFragment extends Fragment  implements OnItemListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
+
+
         super.onViewCreated(view, savedInstanceState);
 
         NavigationView navigationView = getActivity().findViewById(R.id.nav_view);
@@ -67,22 +78,28 @@ public class HomeFragment extends Fragment  implements OnItemListener {
         MainActivity activity =(MainActivity) getActivity();
 
         FloatingActionButton fl = activity.findViewById(R.id.fab_add);
+        fl.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_baseline_add_24));
         fl.setVisibility(View.VISIBLE);
 
 
+        Geocoder geocoder = new Geocoder(getActivity().getApplicationContext(), Locale.getDefault());
+        circle = activity.getCircle();
+        location = activity.getActualPosition();
+        int min = activity.getMinPrice();
+        int max = activity.getMaxPrice();
 
         if(activity != null){
             setRecyclerView(activity);
 
+
             listViewModel = new ViewModelProvider(activity).get(ListViewModel.class);
+
             listViewModel.getCardItems().observe(activity, new Observer<List<CardItem>>() {
+
                 @Override
                 public void onChanged(List<CardItem> cardItems) {
-                    circle = ((MainActivity)getActivity()).getCircle();
-                    location = ((MainActivity)getActivity()).getActualPosition();
                     List<CardItem> cardItemFiltered = new ArrayList<>();
                     for (CardItem c : cardItems){
-                        Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
                         List<Address> addresses = new ArrayList<>();
                         try {
                             addresses = geocoder.getFromLocationName(c.getProductPosition(), 1);
@@ -96,14 +113,30 @@ public class HomeFragment extends Fragment  implements OnItemListener {
                             locationProduct.setLatitude(latitude);
                             locationProduct.setLongitude(longitude);
                             if(isProductInCircle(locationProduct)){
+                                Float price = Float.valueOf(c.getProductPrice());
 
-                                cardItemFiltered.add(c);
+                                if (min != -1 && max != -1){
+                                    if(price > min && price < max){
+                                        cardItemFiltered.add(c);
+                                    }
+                                }else if(min == -1 && max != -1){
+                                    if(price < max){
+                                        cardItemFiltered.add(c);
+                                    }
+                                }else if(min != -1 && max == -1){
+                                    if(price > min){
+                                        cardItemFiltered.add(c);
+                                    }
+                                }else if(min == -1 && max == -1){
+                                    cardItemFiltered.add(c);
+                                }
+
+
                             }
                         }
 
                     }
-
-                    adapter.setData(filterPrice(cardItemFiltered,((MainActivity)getActivity()).getMinPrice(),((MainActivity)getActivity()).getMaxPrice()));
+                    adapter.setData(cardItemFiltered);
                     recyclerView.setAdapter(adapter);
 
                 }
@@ -120,6 +153,7 @@ public class HomeFragment extends Fragment  implements OnItemListener {
             });
 
             SearchView searchView = getActivity().findViewById(R.id.search_icon);
+            searchView.setVisibility(View.VISIBLE);
             searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                 @Override
                 public boolean onQueryTextSubmit(String query) {
@@ -150,7 +184,7 @@ public class HomeFragment extends Fragment  implements OnItemListener {
             Log.e(String.valueOf(LOG), "Activity is null");
         }
 
-
+       // adapter.notifyDataSetChanged();
     }
 
     private boolean isProductInCircle(Location productLocation){
@@ -178,12 +212,11 @@ public class HomeFragment extends Fragment  implements OnItemListener {
     }
 
     private void setRecyclerView(final Activity activity){
+        final OnItemListener listener = this;
+        adapter = new CardAdapter(listener, getActivity());
+
         recyclerView = activity.findViewById(R.id.recycler_view_home);
         recyclerView.setHasFixedSize(true);
-
-
-        final OnItemListener listener = this;
-        adapter = new CardAdapter(listener, activity);
         recyclerView.setAdapter(adapter);
 
 
@@ -221,5 +254,6 @@ public class HomeFragment extends Fragment  implements OnItemListener {
         }
         return cardItemsFiltered;
     }
+
 
 }

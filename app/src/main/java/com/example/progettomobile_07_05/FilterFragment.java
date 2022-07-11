@@ -86,7 +86,7 @@ public class FilterFragment extends Fragment {
                 }
                 ((MainActivity)getActivity()).setMinPrice( numberPickerMin.getValue()-1);
                 ((MainActivity)getActivity()).setMaxPrice( numberPickerMax.getValue()-1);
-                Log.d("prova", String.valueOf(numberPickerMax.getValue()-1));
+                //Log.d("prova", String.valueOf(numberPickerMax.getValue()-1));
                 Utilities.insertFragment((AppCompatActivity) getActivity(), new HomeFragment(), HomeFragment.class.getSimpleName());
             }
         });

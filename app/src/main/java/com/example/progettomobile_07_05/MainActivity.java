@@ -11,10 +11,12 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.Manifest;
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -55,7 +57,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private int minPrice = -1;
     private int maxPrice = -1;
 
+    private boolean relogin = false;
+
     private ListViewModel listViewModel;
+
+    public void setRelogin(boolean value){
+        this.relogin = value;
+    }
+    public boolean getRelogin(){
+        return this.relogin;
+    }
+
 
 
     @Override
@@ -104,7 +116,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         listener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
-                Log.d("position",String.valueOf(location.getLongitude() + location.getLatitude()));
                 setActualPosition(location);
             }
 
@@ -167,9 +178,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+
+           /* FragmentManager fm = getFragmentManager();
+            int count = getFragmentManager().getBackStackEntryCount();
+            String name = fm.getBackStackEntryAt(count - 1).getName();*/
+            if (getVisibleFragment() instanceof LoginFragment
+            || getVisibleFragment() instanceof HomeFragment || getVisibleFragment() instanceof MyProductFragment
+            || getVisibleFragment() instanceof ProfileFragment) {
+
+            }else{
+                super.onBackPressed();
+            }
         }
 
+    }
+    private Fragment getVisibleFragment() {
+        androidx.fragment.app.FragmentManager fragmentManager = MainActivity.this.getSupportFragmentManager();
+        List<Fragment> fragments = fragmentManager.getFragments();
+        for (Fragment fragment : fragments) {
+            if (fragment != null && fragment.isVisible())
+                return fragment;
+        }
+        return null;
     }
 
 
@@ -313,4 +343,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void setMaxPrice(int maxPrice) {
         this.maxPrice = maxPrice;
     }
+
+    public void setActualPage(int value){
+        this.actualPage = value;
+    }
+
+
 }

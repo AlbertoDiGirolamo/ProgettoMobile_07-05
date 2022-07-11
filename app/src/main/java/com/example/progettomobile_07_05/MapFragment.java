@@ -62,12 +62,13 @@ public class MapFragment extends Fragment {
             @Override
             public void onMapReady(@NonNull GoogleMap googleMap) {
                 mMap = googleMap;
+                Location pos =  ((MainActivity)getActivity()).getActualPosition();
+                actualPosition = new LatLng(pos.getLatitude(),pos.getLongitude());
 
                 mMap.addMarker(new MarkerOptions().position(actualPosition).title("Io mi trovo qui"));
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(actualPosition,10));
 
-                Location pos =  ((MainActivity)getActivity()).getActualPosition();
-                actualPosition = new LatLng(pos.getLatitude(),pos.getLongitude());
+
 
                 if (((MainActivity)getActivity()).getCircle()==null){
                     seekBar.setProgress(5);

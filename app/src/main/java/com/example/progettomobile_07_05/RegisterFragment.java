@@ -125,7 +125,7 @@ public class RegisterFragment extends Fragment {
                                 String passwordHash = "";
                                 try {
                                     passwordHash = sha1Hex.makeSHA1Hash(password.getText().toString());
-                                    Log.d("hash", passwordHash);
+                                    //Log.d("hash", passwordHash);
                                 } catch (NoSuchAlgorithmException e) {
                                     e.printStackTrace();
                                 } catch (UnsupportedEncodingException e) {
@@ -143,7 +143,7 @@ public class RegisterFragment extends Fragment {
                                 List<User> listUser = new ArrayList<>();
                                 listUser.add(newUser);
                                 ((MainActivity)getActivity()).setUser(getUser(listUser, mail.getText().toString()));
-
+                                ((MainActivity)getActivity()).setActualPage(R.id.nav_home);
                                 getFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 
                                 Utilities.insertFragment((AppCompatActivity) getActivity(), new HomeFragment(), HomeFragment.class.getSimpleName());

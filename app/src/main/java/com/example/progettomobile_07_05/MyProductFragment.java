@@ -10,7 +10,9 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,6 +21,7 @@ import com.example.progettomobile_07_05.Database.CardItem;
 import com.example.progettomobile_07_05.RecyclerView.CardAdapter;
 import com.example.progettomobile_07_05.RecyclerView.OnItemListener;
 import com.example.progettomobile_07_05.ViewModel.ListViewModel;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +42,8 @@ public class MyProductFragment extends Fragment  implements OnItemListener{
         super.onViewCreated(view, savedInstanceState);
 
         MainActivity activity =(MainActivity) getActivity();
+        FloatingActionButton fl = activity.findViewById(R.id.fab_add);
+        fl.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_baseline_add_24));
 
 
         if(activity != null) {
@@ -61,6 +66,7 @@ public class MyProductFragment extends Fragment  implements OnItemListener{
                 }
             });
         }
+
     }
 
     private void setRecyclerView(final Activity activity){

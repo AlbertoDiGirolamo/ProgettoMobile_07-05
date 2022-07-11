@@ -44,19 +44,10 @@ public class CardAdapter extends RecyclerView.Adapter<CardViewHolder>{
     private Activity activity;
     private OnItemListener listener;
     private ArrayList<CardItem> cardItemListNotFiltered;
-    private FirebaseStorage storage;
-    private StorageReference storageReference;
-    //private DatabaseReference dbRef;
-
-
 
     public CardAdapter(OnItemListener listener, Activity activity){
         this.listener = listener;
         this.activity = activity;
-        //this.cardItemList = new ArrayList<>(cardItemList);
-        //this.cardItemListNotFiltered = new ArrayList<>(cardItemList);
-
-        //dbRef = FirebaseStorage.getInstance().getReferenceFromUrl("gs://progettomobilefirebase.appspot.com");
 
 
     }
@@ -67,7 +58,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardViewHolder>{
         View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_layout, parent, false);
         return  new CardViewHolder(layoutView, listener);
     }
-    public String getRealPathFromURI(Context context, Uri contentUri) {
+    /*public String getRealPathFromURI(Context context, Uri contentUri) {
         Cursor cursor = null;
         try {
             String[] proj = { MediaStore.Images.Media.DATA };
@@ -80,7 +71,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardViewHolder>{
                 cursor.close();
             }
         }
-    }
+    }*/
 
 
 
@@ -150,6 +141,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardViewHolder>{
         final CardItemDiffCallBack diffCallBack = new CardItemDiffCallBack(this.cardItemList, list);
         final DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffCallBack);
         diffResult.dispatchUpdatesTo(this);
+        notifyDataSetChanged();
     }
 
     public CardItem getItemSelected(int position) {

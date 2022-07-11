@@ -28,6 +28,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
@@ -39,6 +40,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -77,7 +79,6 @@ public class AddFragment extends Fragment {
     public static final int RESULT_OK = -1;
     private ImageView imageView;
     private AddViewModel addViewModel;
-//   content://media/external/images/media/79
 
     @Nullable
     @Override
@@ -89,6 +90,9 @@ public class AddFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        FloatingActionButton floatingActionButton = getActivity().findViewById(R.id.fab_add);
+        floatingActionButton.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_baseline_post_add_24));
+
         Activity activity = getActivity();
         if (activity != null) {
             initializeLocation(activity);
@@ -152,7 +156,7 @@ public class AddFragment extends Fragment {
 
 
 
-        FloatingActionButton floatingActionButton = getActivity().findViewById(R.id.fab_add);
+
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -167,7 +171,7 @@ public class AddFragment extends Fragment {
                 if(s.length == 2 && s[1].length()==1){
                     price = price+"0";
                 }
-                Log.d("prezzo", (price));
+                //("prezzo", (price));
 
 
                 Bitmap bitmap = addViewModel.getImageBitmap().getValue();
@@ -179,12 +183,8 @@ public class AddFragment extends Fragment {
                     } else {
                         imageUriString = "verdura.png";
                     }
-                    if (productTIET.getText() != null && descriptionTIET.getText() != null
-                            && price != null && positionTIET.getText() != null) {
-
-
-
-
+                    if (!productTIET.getText().toString().equals("") && !descriptionTIET.getText().toString().equals("")
+                            && price != null && !priceTIET.getText().toString().equals("") && !positionTIET.getText().toString().equals("")) {
 
                         addViewModel.addCardItem(new CardItem(imageUriString, productTIET.getText().toString(),
                                 price, descriptionTIET.getText().toString(),
@@ -192,7 +192,12 @@ public class AddFragment extends Fragment {
 
                         addViewModel.setImageBitmap(null);
 
-                        ((AppCompatActivity) activity).getSupportFragmentManager().popBackStack();
+                        //((AppCompatActivity) activity).getSupportFragmentManager().popBackStack();
+                        //Utilities.insertFragment((AppCompatActivity) getActivity(), new HomeFragment(), HomeFragment.class.getSimpleName());
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+                    }
+                    else{
+                        Toast.makeText(getActivity(), "Completare correttamente le informazioni", Toast.LENGTH_SHORT).show();
                     }
 
                 } catch (FileNotFoundException e) {
@@ -314,7 +319,7 @@ public class AddFragment extends Fragment {
         Uri imageUri = contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
                 contentValues);
 
-        Log.d("AddFragment", String.valueOf(imageUri));
+        //Log.d("AddFragment", String.valueOf(imageUri));
 
         OutputStream outputStream = contentResolver.openOutputStream(imageUri);
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
@@ -351,7 +356,7 @@ public class AddFragment extends Fragment {
             if (requestCode == SELECT_PICTURE) {
                 // Get the url of the image from data
                 Uri selectedImageUri = data.getData();
-                Log.d("uri",selectedImageUri.toString());
+               // Log.d("uri",selectedImageUri.toString());
                 if (null != selectedImageUri) {
                     // update the preview image in the layout
                     imageView.setImageURI(selectedImageUri);

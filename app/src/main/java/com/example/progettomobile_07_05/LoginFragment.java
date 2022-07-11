@@ -3,6 +3,7 @@ package com.example.progettomobile_07_05;
 import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,11 +14,13 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
@@ -41,6 +44,7 @@ public class LoginFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
         setHasOptionsMenu(true);
         return inflater.inflate(R.layout.fragment_login, container, false);
     }
@@ -54,6 +58,7 @@ public class LoginFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+
 
         super.onViewCreated(view, savedInstanceState);
         MainActivity activity =(MainActivity) getActivity();
@@ -95,7 +100,7 @@ public class LoginFragment extends Fragment {
                             String passwordHash = "";
                             try {
                                 passwordHash = sha1Hex.makeSHA1Hash(password.getText().toString());
-                                Log.d("hash", passwordHash);
+                                //Log.d("hash", passwordHash);
                             } catch (NoSuchAlgorithmException e) {
                                 e.printStackTrace();
                             } catch (UnsupportedEncodingException e) {
@@ -109,11 +114,12 @@ public class LoginFragment extends Fragment {
                                 navigationView.getMenu().getItem(0).setChecked(true);
 
                                 ((MainActivity) getActivity()).setUser(getUser(u, mail.getText().toString()));
-
-                                getFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                                ((MainActivity)getActivity()).setActualPage(R.id.nav_home);
+                                //getFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 
 
                                 Utilities.insertFragment((AppCompatActivity) getActivity(), new HomeFragment(), HomeFragment.class.getSimpleName());
+                                //getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
                                 start = true;
                             } else {
                                 Toast.makeText(getActivity(), "Credenziali errate", Toast.LENGTH_SHORT).show();
@@ -130,8 +136,31 @@ public class LoginFragment extends Fragment {
                 Utilities.insertFragment((AppCompatActivity) getActivity(), new RegisterFragment(), RegisterFragment.class.getSimpleName());
             }
         });
+        //Log.d("frag", getFragmentManager().getFragments().toString());
+        ImageView info =view.findViewById(R.id.infologin);
+        info.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setMessage("\"Il mio orto\" ti permette di mettere in vendita alimenti a Km 0.\n" +
+                        "Nella Home visualizzerai i prodotti disponibili e che rispettano le tue preferenze.\n" +
+                        "Puoi ricercare i prodotti i base al nome e filtrarli in base al prezzo e alla distanza da te preferita.\n" +
+                        "Hai a disposizione una mappa per visualizzare le posizioni dei prodotti e per avviare direttamente la navigazione.\n\n" +
+                        "Grazie per averci scelto!\n\n\n");
+                builder.setTitle("Informazioni");
+                builder.setCancelable(false);
+
+                builder.setPositiveButton("Chiudi", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
 
 
+                    }
+                });
+
+                AlertDialog alert = builder.create();
+                alert.show();
+            }
+        });
 
 
     }
@@ -144,6 +173,7 @@ public class LoginFragment extends Fragment {
         }
         return null;
     }
+
 }
 
 
