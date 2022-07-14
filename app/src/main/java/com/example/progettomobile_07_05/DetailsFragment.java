@@ -113,6 +113,7 @@ public class DetailsFragment extends Fragment {
                     int count = getFragmentManager().getBackStackEntryCount();
                     try {
                         String name = fm.getBackStackEntryAt(count - 2).getName();
+                        //Log.d("elimina",name );
                         if (!name.equals("MyProductFragment")) {
                             getActivity().findViewById(R.id.deleteitem).setVisibility(View.INVISIBLE);
                         }

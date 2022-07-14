@@ -108,6 +108,7 @@ public class LoginFragment extends Fragment {
                             }
                             if (mailList.contains(mail.getText().toString()) && (mailList.indexOf(mail.getText().toString()) == passwordList.indexOf(passwordHash))) {
                                 Toast.makeText(getActivity(), "Accesso effettuato", Toast.LENGTH_SHORT).show();
+
                                 InputMethodManager manager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                                 manager.hideSoftInputFromWindow(view.getWindowToken(), 0);
 

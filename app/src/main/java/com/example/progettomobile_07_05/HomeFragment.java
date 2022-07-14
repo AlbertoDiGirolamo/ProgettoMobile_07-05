@@ -3,6 +3,7 @@ package com.example.progettomobile_07_05;
 import static android.webkit.ConsoleMessage.MessageLevel.LOG;
 
 import android.app.Activity;
+import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -22,6 +23,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import android.database.ContentObserver;
+import android.view.inputmethod.InputMethodManager;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
@@ -69,6 +71,9 @@ public class HomeFragment extends Fragment  implements OnItemListener {
 
 
         super.onViewCreated(view, savedInstanceState);
+
+        InputMethodManager manager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        manager.hideSoftInputFromWindow(view.getWindowToken(), 0);
 
         NavigationView navigationView = getActivity().findViewById(R.id.nav_view);
         navigationView.getMenu().findItem(R.id.nav_home).setVisible(true);
@@ -136,6 +141,7 @@ public class HomeFragment extends Fragment  implements OnItemListener {
                         }
 
                     }
+
                     adapter.setData(cardItemFiltered);
                     recyclerView.setAdapter(adapter);
 

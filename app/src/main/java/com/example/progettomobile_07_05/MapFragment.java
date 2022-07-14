@@ -83,10 +83,11 @@ public class MapFragment extends Fragment {
                     public void onChanged(List<CardItem> cardItem) {
                         for (CardItem c : cardItem){
 
-                            Geocoder coder = new Geocoder(getContext());
-                            List<Address> address = null;
 
+                            List<Address> address = null;
                             try {
+                                Geocoder coder = new Geocoder(getContext());
+
                                 address = coder.getFromLocationName(c.getProductPosition(), 5);
                             } catch (IOException e) {
                                 e.printStackTrace();

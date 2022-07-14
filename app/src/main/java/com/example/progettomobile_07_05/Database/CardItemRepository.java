@@ -18,6 +18,13 @@ public class CardItemRepository {
     }
 
     public LiveData<List<CardItem>> getCardItemList(){
+        Database.executor.execute(new Runnable() {
+            @Override
+            public void run() {
+
+            }
+        });
+
         return  cardItemList;
     }
 
